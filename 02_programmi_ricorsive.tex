@@ -12,24 +12,38 @@ determinate \emph{istruzioni} che la macchina \`e in grado di
 riconoscere. Una sequenza di queste semplici istruzioni costituisce un
 \emph{programma}.
 
-Supponendo $x_i$, $x_j$ e $x_k$ essere nomi di variabili, tali
-istruzioni possono essere di quattro tipi:
+
+\begin{programmi}
+Chiamiamo programma P una sequenza finita non nulla di istruzioni etichettate
+\end{programmi}
+
+Chiameremo $x_i$, $x_j$ e $x_k$ variabili dove $i,j,k \in \mathbb{N}$. Assumeremo come convenzione,
+che l'output di $P$ deve essere messo (dal programmatore) nella variabile $x_0$.
+Inoltre l'ennupla $a_1, a_2, ..., a_n \in \mathbb{N}^k $ fornita come input al nostro programma verrà memorizzato nelle prime n variabili $x_1, ..., x_n$.
+Assumiamo anche che tutte le variabili utilizzare nel nostro programma siano automaticamente inizializzate a zero e scriveremo $P(a_1, a_2, ..., a_n)$ per dire che eseguiamo $P$ con l'input $a_1, a_2, ..., a_n$.
+
+Le istruzioni del programma possono essere:
 
 \begin{enumerate}
-\item $x_j \leftarrow 0$ svuota $x_j$ del suo contenuto
-\item $x_j \leftarrow x_i $ assegna il contenuto di $x_i$ a $x_j$
-\item $x_j \leftarrow x_j+1$ aumenta il contenuto di $x_j$ di uno e
-  riassegna il risultato come valore a $x_j$
-\item $\textrm{if }x_i \neq0$ then goto $\alpha$ else goto $\beta$ con
-  $\alpha$ e $\beta$ istruzioni del programma
+\item $x_j \leftarrow 0$ assegna ad $x_j$ il valore zero. (azzeramento)
+\item $x_j \leftarrow x_i $ assegna il contenuto di $x_i$ a $x_j$ (trasferimento)
+\item $x_j \leftarrow x_j+1$ aumenta il contenuto di $x_j$ di uno e 
+  riassegna il risultato come valore a $x_j$ (successsore)
+\item $\textrm{if }(condizione) $ then goto $\alpha$ else goto $\beta$ con
+  $\alpha$ e $\beta$ etichette di istruzioni del programma. (salto)
 \end{enumerate}
 	
+Esempi di condizioni possono essere il confronto fra due variabili, il confronto di
+una variabile con un numero naturale ecc..
+
 \begin{nota}
-Nella (\emph{4}) \`e possibile sostituire alla condizione $x_i \neq0$
+Nella (\emph{4}) come condizione \`e possibile utilizzare 
 una qualunque formula atomica di un linguaggio che usi le relazioni
 $=,\geq,<$ e le operazioni $+,-,successore,\ldots $ e le loro
 composizioni.
 \end{nota}
+
+
 
 \begin{extra}
 Si scriva un programma in cui sia presente un'istruzione del tipo
@@ -45,17 +59,18 @@ calcolo \newline booleano classico.
 \end{extra}	
 
 Per eseguire una \emph{computazione} la macchina deve essere
-fornita di un \emph{programma} $P$ e una \emph{configurazione
-  iniziale}, che pu\`o essere, ad esempio, una sequenza $a_1, a_2,
-...$ di numeri naturali memorizzati nelle variabili $x_i, x_j,
-...$. Supponiamo che $P$ sia composto da $s$ istruzioni $I_1, I_2,...,
+fornita di un \emph{programma} $P$ e di una \emph{configurazione
+  iniziale} (input), che pu\`o essere, ad esempio, una sequenza $a_1, a_2,
+...$ di numeri naturali.
+Supponiamo che $P$ sia composto da $s$ istruzioni $I_1, I_2,...,
 I_s$.
 
-Allora la macchina inizia la computazione osservando $I_1$, poi $I_2$,
+Allora la macchina inizia la computazione eseguendo $I_1$, poi $I_2$,
 e cos\`i via, a meno che non si incontri un'istruzione di \emph{goto}
 che fa saltare la computazione in una delle $s$ istruzioni. La
 computazione si ferma quando, e solo quando non c'\`e una prossima
-istruzione. Possiamo illustrare questo attraverso un esempio.
+istruzione oppure incontriamo la parola chiave \textbf{stop}.
+Possiamo illustrare questo attraverso un esempio.
 	
 \begin{esempio} Consideriamo il seguente programma con $s=6$ istruzioni:
 \begin{mylisting}
@@ -132,86 +147,145 @@ tante volte fino a quando la condizione $x_1 \neq x_2$ non viene
 soddisfatta.
 	
 Pi\`u in generale possiamo dire che il comando \emph{goto} pu\`o
-essere utilizzato per l'esecuzione di un ciclo \emph{for}.  Infatti
-con $n$ fissato il ciclo:\\
+essere utilizzato per simulare quello che nei linguaggi ad alto livello conosciamo come 
+ciclo \emph{for}. 
+Infatti con $n$ fissato il ciclo:\\
 $$ \left[
 \begin{array}{l}
-for \; $i = 1$ \; to \; $n$\\ \ \ \ \ \left[p\;
-programma\right. \\ next \; $i$\\
+for \; $i = 1$ \; to \; $n$\\ \ \ \ \ \left[P\;
+programma]\right. \\ next \; $i$\\
 \end{array} \right.
 \
 $$ 
-viene implementato dal programma nell'Esempio 1.2.
+viene implementato dal programma nell'Esempio 1.2 dove $n$ è un opportuna variabile
+che riceve in input il valore di $n$.
 
 \newpage
+
 \begin{esempio}
-\end{esempio}
+
 \begin{minipage}[c]{.50\textwidth}
 \begin{mylisting}
- $I_1: x_i \leftarrow 0 $\\ $I_2: x_i \leftarrow x_i + 1 $ \\ $I_3:
-  \left[p\; programma] \right. $\\ $I_4:$ if $n-x_i\neq 0 $ then \\
-\hspace{\stretch{1}} goto $I_2$ else goto stop\\
+ $I_1: x_i \leftarrow 0 $\\ 
+ $I_2: x_i \leftarrow x_i + 1 $ \\
+ $I_3: $ if $ n<x_i $ then goto stop else goto $I_4$ \\
+ $I_4:  \left[ P\; programma \right ] $ \\
+ $I_5: x_i \leftarrow x_i+1 $ \\
+ $I_6 $ if $n < x_i $ then \\ \hspace{\stretch{1}} goto stop  else goto $I_4$\\
+
 \end{mylisting}
 \end{minipage}
 \hspace{5mm}%
 \begin{minipage}[c]{.50\textwidth}
 \begin{tikzpicture}[node distance = 1.6 cm, auto]
     % Place nodes 
-\node[noblock] (start) {START}; \node [block, below
-  of=start] (I1) {$x_i \leftarrow 0$}; \node [block, below of=I1] (I2)
-{$x_i \leftarrow x_i+ 1$}; \node [block, below of=I2] (I3)
-{programma}; \node [decision, below of=I3] (I4) {$n - x_i \neq 0$};
-\node[noblock,below of=I4] (stop) {STOP};
+\node[noblock] (start) {START}; 
+\node [block, below of=start] (I1) {$x_i \leftarrow 0$};
+\node [block, below of=I1] (I2) {$x_i \leftarrow x_i+ 1$};
+\node [decision, below of=I2] (I3) {$n < x_i$};
+\node [block, below of=I3] (I4) {$ \left [ P \right] $};
+\node [block, below of=I4] (I5) {$x_i \leftarrow x_i+ 1$};
+\node [decision, below of=I5] (I6) {$n < x_i$};
+\node[noblock,below of=I6] (stop) {STOP};
 
     % Draw edges
 \path [line] (start) -- (I1);
 \path [line] (I1) -- (I2);
 \path [line] (I2) -- (I3);
-\path [line] (I3) -- (I4);
-\path [line] (I4.west) -- ++(-.8,0) -- ++(-.8,0) |- node [near start] {yes}(I2.west);
-\path [line] (I4) --node{no} (stop);
+\path [line] (I3.west) -- ++(-.8,0) -- ++(-.8,0) |- node [near start] {yes}(stop.west);
+\path [line] (I3) -- node{no} (I4);
+\path [line] (I4) -- (I5);
+\path [line] (I5) -- (I6);
+\path [line] (I6.east) -- ++(+.10,0) -- ++(+.8,0) |- node [near start] {no}(I4.east);
+\path [line] (I6) --node{yes} (stop);
 
 \end{tikzpicture}
 \end{minipage}
+
+\end{esempio}
+
 \vspace{5mm}% 
 	
-Naturalmente, ci possono essere programmi che non terminano mai; per
-esempio il semplice programma
+\newpage
+
+Ci chiediamo adesso, le quattro istruzioni che abbiamo introdotto sono tutte necessarie? 
+E' possibile toglierne qualcuna e continuare a calcolare le stesse funzioni?
+E immediato verificare che l'istruzione di trasferimento $x_j \leftarrow x_i$ può
+essere scritta in funzione delle altre. Vediamo l'esempio:
+
+\begin{esempio} utilizziamo le altre tre istruzioni per simulare il comportamento dell' istruzione di trasferimento:
+\begin{mylisting}
+$I_1$: $\textrm{if }x_j = x_i$ then goto stop else goto $I_2$\\
+$I_2$: $x_j \leftarrow 0$\\
+$I_3$: $x_j \leftarrow x_j +1$\\ 
+$I_4$: $\textrm{if }x_j = x_i$ then goto stop else goto $I_2$\\
+\end{mylisting}
+\end{esempio}
+
+Abbiamo quindi introdotto l'istruzione di trasferimento al solo fine di semplificare 
+la scrittura dei nostri programmi.
+
+Un altra domanda che sorge è: "senza l'istruzione di salto
+riusciamo a calcolare le stesse funzioni di quante ne calcoleremo con tutte e quattro? Ebbene si può dimostrare che 
+le uniche funzioni che possiamo calcolare senza l'istruzione di salto sono del tipo
+
+\begin{enumerate}
+\item $f(x) = m \, \, m \in  \mathbb{N} $ 
+\item $f(x) = x+ m \, \,  \forall x ,  m \in  \mathbb{N} $ 
+\end{enumerate}
+
+\begin{extra}
+Dimostrare che senza l'istruzione di if .. goto calcoliamo solo funzioni del tipo (1) e (2).
+\end{extra}
+
+\begin{extra}
+Dimostrare che senza l'istruzione di if .. goto calcoliamo solo funzioni che sono totali.
+\end{extra}
+
+Questo fatto ci mostra che con tutta la sua semplicità l'istruzione di salto 
+è importantantissima per calcolare quanto c'e di calcolabile e ciò si traduce nel fatto che
+se il nostro linguaggio di programmazione preferito non disponesse dell' istruzione di salto 
+esso servirebbe a ben poco.
+
+Notiamo anche il fatto che non tutti i moderni linguaggi di programmazione 
+dispongono dell'istruzione goto dovuto al fatto che l'uso questa istruzione 
+è generalmente considerato indice di cattiva programmazione
+ma ciò è stato rimpiazzato dall'uso delle cosiddette strutture di controllo iterative (for e while)
+che implicitamente permettono di saltare in maniera controllata da un punto 
+all'altro del programma.
+
+
+\subsection{Funzioni calcolabili con un programma}
+
+Abbiamo visto dei capitoli precedenti come in maniera naturale "leghiamo" il
+concetto di macchina al concetto di funzione, così come in questo 
+capitolo abbiamo legato il concetto di programma a quello di funzione.
+Cioè è naturale pensare il calcolo del valore di una qualsiasi funzione $f(a_1, a_2, ... , a_n)$ 
+per mezzo di un programma $P$ con configurazione iniziale $a_1, a_2, ... , a_n$.
+
+In generale, la funzione associata ad un programma è parziale, anziché totale, in quanto tra le caratteristiche dei nostri programmi, rientra la
+posibilità che, per certi input non venga prodotto alcun output.
+
+Si consideri ad esempio il seguente programma:
 	
 \begin{mylisting}
 $I_1$: if $x_i = x_i $ then goto $I_1$ else goto stop
 \end{mylisting}	
-non termina mai, e questo deriva dal fatto che la condizione $x_i =
-x_i $ \`e sempre vera, quindi la computazione viene rimandata a $I_1$
-all'infinito.
-	
-Ci sono molti modi pi\`u complessi per i quali una computazione
-potrebbe eseguire per sempre, ma essenzialmente la causa \`e sempre
-una ripetizione o un ciclo come nell'esempio citato sopra.
-	
-Il problema di decidere se una particolare computazione termina o meno
-verr\`a trattato successivamente.\\
 
-\subsection{Funzioni computabili da programmi}
-Supponiamo che $f$ sia una funzione da $\mathbb{N}^n$ a $ \mathbb{N}$
-con $(n > 1)$; cosa significa dire che $f$ \`e \emph{computabile}
-da un programma? \`E naturale pensare in termini di calcolo del valore
-$f(a_1, a_2, ... , a_n)$ per mezzo di un programma $P$ con
-configurazione iniziale $a_1, a_2, ... , a_n$, Cio\`e, consideriamo
-computazione della forma $P(a_1, a_2, ... , a_n)$.
+che non termina mai. La condizione è sempre vera è ciò causa l'esecuzione
+continua della stessa istruzione. La funzione calcolata
+da questo programma la chiameremo funzione sempre indefinita.
 
-Se tale calcolo termina, c'é un singolo numero che consideriamo come
-output o risultato della computazione. Per convenzione poniamo che il
-risultato alla fine della computazione sia contenuto nella variabile
-$x_0$, mentre il contenuto delle altre variabili pu\`o essere
-ingnorato una volta ottenuto il risultato. Diamo dunque la seguente
-definizione.
+Diamo adesso una definizione di funzione calcolabile con un programma.
 
 \begin{programmi}
-Una funzione $f$ si dice \emph{computabile} da un programma se,
-assegnati i valori $a_1,...,a_n$ alle variabili $x_1,...,x_n$, il
-programma restituisce il valore $x_0=f(a_1,...,a_n)$.
+Una funzione $f$ si dice \emph{calcolabile da un programma} se,
+$\exists$ un programma $P$ tale che per ogni $(a_1,...,a_n) \in \mathbb{N}^k$ 
+$P(a_1,...,a_n)$ termina sse $(a_1,...,a_n) \in dom(f) $ e  $x_0=a$ se 
+$f(a_1,...,a_n) = a$
 \end{programmi}
+
+\subsection{Equivalenza tra programmi e macchine a registri}
 
 E' facile verificare che con una macchina a registri si possono
 eseguire le stesse operazioni viste all'inizio della sezione (e
@@ -230,10 +304,10 @@ costituiscono un programma:\\
   \ar@(ul,ul)[] \ar@(ul,dl)[] \ar[r] & stop }
  \vspace{10mm}
 
-\item $x_j \leftarrow x_i $ \hspace{10mm} \xymatrix{ \roundentry{i-}
-  \ar@(ul,ul)[] \ar[d] \ar[r] & \roundentry{42-} \ar@(dr,d)[d] \ar[r]
-  &stop \\ \roundentry{j+} \ar[d] \ar[u] & \roundentry{i+}
-  \ar[u]\\ \roundentry{42+} \ar@(dl,dl)[uu] \\ }
+\item $x_j \leftarrow x_i $ \hspace{10mm} \xymatrix{ \roundentry{j-}  
+  \ar@(ul,ul)[] \ar@(ul,dl)[] \ar[r] & \roundentry{i-} \ar[d]  \ar[r] &  
+  \roundentry{42-} \ar@(dr,d)[d] \ar[r] & stop \\ & \roundentry{j+} \ar[d] & \roundentry{i+} \ar[u]
+  \\ & \roundentry{42+} \ar@(dl,dl)[uu]}
 \vspace{10mm}
 
 \item $x_j \leftarrow x_j+1$ \hspace{10mm} \xymatrix{ \roundentry{j+}
@@ -352,15 +426,21 @@ La classe delle funzioni primitive ricorsive \`e dunque \emph{chiusa
   primitiva}. Ora vedremo che questa classe di funzioni, che abbiamo
 appena definito in termini matematici, \`e calcolabile dai programmi.
 
-% Ane Santos Herranz
 
 \begin{thm}
 \emph{Ogni funzione primitiva ricorsiva è eseguibile da un programma
 (e quindi calcolabile).}\end{thm}
 \begin{proof}
 Dobbiamo fare un programma per le tre funzioni di base, per la
-composizione generalizzata e la ricorsione. Come sappiamo il output è
-sempre in $x_{0}$
+composizione generalizzata e la ricorsione. Come sappiamo l' output è
+per convenzione in $x_{0}$. Assumiamo anche in questa dimostrazione che 
+se un programma P utilizza una variabile per la prima volta prima di usarla
+azzeri il suo contenuto. Questa assunzione deve essere fatta perché
+quando parleremo di ricorsione e composizione delle funzioni 
+i programmi verranno eseguiti uno dopo l'altro e tra le loro possibilità rientra quella 
+di utilizzare le stesse variabili usate dai programmi precedenti. Ciò assicura
+che azzerando la variabile prima dell'uso non si trovino valori `sporchi`.
+
 \begin{itemize}
 \item[a.] Facciamo un programma per la funzione zero:
 \begin{mylisting}
@@ -368,17 +448,19 @@ $I_1$: $x_{0}\leftarrow0$
 \end{mylisting}
 
 \item[b.] Il programma per il successore:\begin{mylisting}$I_1$:
-  $x_{0}\leftarrow x_{1}+1$\end{mylisting}
+  $x_{1}\leftarrow x_{1}+1$ \\$I_2:x_{0}\leftarrow x_{1} $\end{mylisting}
 
 \item[c.] La proiezione:\begin{mylisting}$I_1$: $x_{0}\longleftarrow
   x_{i}$\end{mylisting}
 \end{itemize}
 
 \begin{enumerate}
-\item La composizione: siano $P, P_1, P_2, \dots, P_n$ programmi per
-  le funzioni $f,g_{1},...g_{n}$ rispettivamente. L'output di ogni
+\item La composizione: siano $F, G_1, G_2, \dots, G_k$ programmi che calcolano
+  le funzioni $f,g_{1},...g_{k}$ rispettivamente. Dobbiamo far vedere che
+  riusciamo ad esibire un programma $H$ che calcola la funzione $h$.
+  L'output di ogni
   funzione viene salvato in $x_{0}$; quindi, poich\'e vogliamo salvare
-  tutti i risultati intermedi del calcolo di $g_{1},\dots,g_{n}$
+  tutti i risultati intermedi del calcolo di $g_{1},\dots,g_{k}$
   dobbiamo copiare di volta in volta $x_0$ in una variabile che siamo
   sicuri che non sia usata da uno dei programmi. Inoltre dobbiamo
   riservarci dello spazio per le variabili di input poich\'e qualche
@@ -389,50 +471,50 @@ $I_1$: $x_{0}\leftarrow0$
   $$\rho(Q)=max\left\{ i|x_{i}\leftarrow...\in Q\right\}$$
   il massimo indice di una variabile assegnata in $Q$ e
   $$\varepsilon=max\left\{
-  \rho(P_{1}),....,\rho(P_{n}),\rho(P),k\right\}$$
-  il massimo indice utilizzato nei programmi $P, P_1, \dots, P_n$.
+  \rho(G_{1}),....,\rho(G_{k}),\rho(F),k,n\right\}$$
+  il massimo indice utilizzato nei programmi $F, G_1, \dots, G_k$.
 
-Costruiamo il programma che calcola la composizione come segue:
-salviamo l'input, che si trova in $x_{1},\dots,x_{k}$ in
-$x_{\varepsilon+1},\dots,x_{\varepsilon+k}$, applichiamo il programma
-$P_1$ e copiamo l'output in $x_{\varepsilon+k+1}$:
+Costruiamo il programma $H$ che calcola la composizione come segue:
+salviamo l'input, che si trova in $x_{1},\dots,x_{n}$ in
+$x_{\varepsilon+1},\dots,x_{\varepsilon+n}$, eseguiamo il programma
+$G_1$ e copiamo l'output in $x_{\varepsilon+n+1}$:
 
 \begin{mylisting}
 $x_{\varepsilon+1}\leftarrow x_{1}$\\
 $\vdots$\\
-$x_{\varepsilon+k}\leftarrow x_{k}$\\
-$P_{1}$\\
-$x_{\varepsilon+k+1}\leftarrow x_{0}$
+$x_{\varepsilon+n}\leftarrow x_{n}$\\
+$[G_{1}]$\\
+$x_{\varepsilon+n+1}\leftarrow x_{0}$
 \end{mylisting}
 
 Copiamo l'input:
 \begin{mylisting}
 $x_{1}\leftarrow x_{\varepsilon+1}$\\
 $\vdots$\\
-$x_{k}\leftarrow x_{\varepsilon+k}$
+$x_{n}\leftarrow x_{\varepsilon+n}$
 \end{mylisting}
 
-Applichiamo $P_{2}$ e copiamo l'output in $x_{\varepsilon+k+2}$;
+Eseguiamo $G_{2}$ e copiamo l'output in $x_{\varepsilon+n+2}$;
 ripetiamo questa operazione per tutti gli altri programmi fino ad
-applicare il programma $P_{n}$ e copiare il suo output in
-$x_{\varepsilon+k+n}$.
+applicare il programma $G_{k}$ e copiare il suo output in
+$x_{\varepsilon+n+k}$.
 
-A questo punto tutti gli input per P si trovano in
-$x_{\varepsilon+k+1},\dots,x_{\varepsilon+k+n}$.  Copiamo questi
-valori in $x_{1},\dots,x_{k}$ e applichiamo il programma P:
+A questo punto tutti gli input per F si trovano in
+$x_{\varepsilon+n+1},\dots,x_{\varepsilon+n+k}$.  Copiamo questi
+valori in $x_{1},\dots,x_{k}$ e applichiamo il programma F:
 
 \begin{mylisting}
-$x_{1}\leftarrow x_{\varepsilon+k+1}$\\
+$x_{1}\leftarrow x_{\varepsilon+n+1}$\\
 $\vdots$\\
-$x_{k}\leftarrow x_{\varepsilon+k+n}$\\
-$P$
+$x_{k}\leftarrow x_{\varepsilon+n+k}$\\
+$[F]$
 \end{mylisting}
 
 Dopo questa sequenza di operazioni il risultato della composizione si
 trova in $x_{0}$.
 
 \item La ricorsione: sia $F$ un programma che calcola $f$ e $G$ un
-  programma per $g$. Per realizzare un programma che calcola $h$
+  programma per $g$. Per realizzare un programma $H$ che calcola $h$
   dobbiamo innanzitutto salvare le variabili di input e i risultati
   parziali di $f$ e $g$ in variabili non utilizzate dai due programmi
   $F$ e $G$.
@@ -446,7 +528,8 @@ Allora, prima copiamo l'input e mettiamo 0 in $x_{\varepsilon+k+2}$
 per cominziare la ricorsione (per calcolare $h(x,0)$). Adesso possiamo
 applicare il programma $F$.
 
-Poi dobbiamo guardare se l'$y$ che ci è stato dato all'inizio è uguale
+Poi dobbiamo guardare se l'$y$ che ci è stato dato all'inizio che copiamo
+in $x_{\varepsilon+k+3}$ è uguale
 a zero; se è cosi, il programma deve terminare. Se non è cosi, il
 programma deve calcolare $h(x,s(y))$ (la prima volta $s(y)$ sarà
 1). Il programma G utilizza come input $x_{1},\dots,x_{k}$ per
@@ -463,21 +546,20 @@ torniamo ad eseguire il ciclo. Allora, il programa sarà:
 $x_{\varepsilon+1}\leftarrow x_{1}$\\
 $\vdots$\\
 $x_{\varepsilon+k}\leftarrow x_{k}$\\
-$x_{\varepsilon+k+1}\leftarrow x_{k+3}$\\
-$F$\\
+$x_{\varepsilon+k+3}\leftarrow x_{k+1}$ \\
+$[F]$\\
 $x_{\varepsilon+k+2}\leftarrow x_{0}$\\
 $x_{\varepsilon+k+1}\leftarrow 0$\\
-$loop:\; $if$\; x_{\varepsilon+k+1}=x_{\varepsilon+k+3}\; $then goto$\;stop$\\
-$x_{\varepsilon+k+1}\leftarrow x_{\varepsilon+k+1}+1$\\
-$x_{1}\leftarrow x_{\varepsilon+1}$\\
+$I_t:\; $if$\; x_{\varepsilon+k+3}=x_{\varepsilon+k+1}\; $then goto$\;stop$ else goto $I_{t+1}$\\
+$I_{t+1}:x_{1}\leftarrow x_{\varepsilon+1}$\\
 $\vdots$\\
 $x_{k}\leftarrow x_{\varepsilon+k}$\\
 $x_{k+1}\leftarrow x_{\varepsilon+k+1}$\\
 $x_{k+2} \leftarrow x_{\varepsilon+k+2}$\\
-$G$\\
+$[G]$\\
 $x_{\varepsilon+k+2} \leftarrow x_0$\\
-goto$\; loop$\\
-$stop:$
+$x_{\varepsilon+k+1}\leftarrow x_{\varepsilon+k+1}+1$\\
+$if \; x_0=x_0\; $ then goto $I_t$ else ...
 \end{mylisting}
 \end{enumerate}
 \end{proof}
