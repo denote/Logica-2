@@ -1350,8 +1350,134 @@ Abbiamo quindi dimostrato che per ogni macchina di Turing esiste una
 funzione ricorsiva che la computa ed abbiamo visto come costruirla.
 \end{proof}
 
+
 \subsection{Tesi di Church-Turing}
 Poichè tutti questi (ed altri) tentativi di definire tutto ciò che è
 effettivamente calcolabile portano alla stessa classe di funzioni, si
 può pensare che la nostra nozione intuitiva di calcolabilità coincida
 esattamente con ognuna di queste definizioni.
+
+
+% Giuseppe Ferri
+
+\section{Esempio di funzione non ricorsiva}
+La definizione di funzione non ricorsiva che si intende dare è basata sul processo di definizione delle funzioni ricorsive. In particolare, si definisce un \emph{sistema di nomi di arietà} per le funzioni ricorsive.
+
+\begin{itemize}
+ \item La funzione unaria \emph{zero} che ad ogni input associa il valore 0 viene denotata con il nome \emph{$Z^1$}, dove l'indice 1 ricorda che si tratta di una funzione ad un argomento.
+\item La funzione unaria \emph{succ} che ad ogni input \emph{x} associa il valore \emph{x}+1 viene denotata con il nome \emph{$S^1$}, dove l'indice 1 ricorda che si tratta di una funzione ad un argomento.
+\item La funzione \emph{n}-aria \emph{$proj^n_i$}, con \emph{$1 \leq i\leq n$}, che ad ogni ennupla (\emph{$x_1,...,x_n$}) associa il valore \emph{$x_i$} viene denotata con il nome \emph{$P^n_i$}, dove l'indice \emph{n} ricorda che si tratta di una funzione a \emph{n} argomenti.
+\item Se \emph{$F^m$},  \emph{$G^n_1$},...,\emph{$G^n_m$} sono i nomi delle \emph{m} + 1 funzioni \emph{f}, \emph{$g_1$},...,\emph{$g_m$} rispettivamente la prima di arietà \emph{m} e, tutte le altre, di arietà \emph{n}, allora \emph{$C^n$[$F^m$,$G^n_1$,..., $G^n_m$]} è il nome della funzione \emph{h} di arietà \emph{n} ottenuta componendo \emph{f} con le funzioni \emph{$g_1,...,g_m$}, ossia \emph{$h(\vec{x}) = f(g_1(\vec{x}),...,g_m(\vec{x}))$}.
+\item Se \emph{$K^n$} e \emph{$G^{n+2}$} sono i nomi delle funzioni \emph{k} e \emph{g} di arietà rispettivamente \emph{n} e \emph{n+2} allora \emph{$R^{n+1}$[$K^n$, $G^{n+2}$]} è il nome della funzione \emph{f} di arietà \emph{n+1} ottenuta per ricorsione primitiva da \emph{k} e \emph{g}, ossia \emph{$f(0, \vec{y}) =k(\vec{y})$} e \emph{$f(x+1, \vec{y}) =g(x, \vec{y}, f(x, \vec{y}))$}.
+\item Se \emph{$G^{n+1}$} è il nome della funzione \emph{g} di arietà \emph{n+1} allora \emph{$M^n$[$G^{n+1}$]} è il nome della funzione \emph{f} di arietà \emph{n} ottenuta da \emph{g} per minimizzazione, ossia \emph{$f(\vec{x}) := \mu y.g(\vec{x}, y) = 0$}.
+\end{itemize}
+
+
+Possiamo quindi dare la seguente definizione.
+
+\begin{defi}[Funzione ricorsiva]
+Una funzione è \emph{ricorsiva} se e solo se ha un nome.
+\end{defi}
+ 
+In effetti una funzione ricorsiva può avere molti nomi, tuttavia un nome \emph{F} definisce esattamente una funzione ricorsiva che indicheremo con \emph{$f_F$} quando vorremmo mettere l'accento sul fatto che la definizione della funzione dipende dal suo nome.
+\begin{esempio}
+[somma]
+La funzione somma si può definire induttivamente come:
+$$\left\{
+\begin{array}{ll} y + 0 = y\\
+                 y + succ(x)= succ(x + y)
+\end{array} \right.$$
+Si pone il segno di addizione + in forma più esplicita, ottenendo:
+$$\left\{
+\begin{array}{ll} somma(0, y) = y\\
+                 somma(succ(x), y) = succ(somma(x, y))
+\end{array} \right.$$
+Ed infine mettiamo queste equazioni nel formato ufficiale per la ricorsione:
+
+$$\left\{
+\begin{array}{ll} somma(0, y) = P^1_1(y)\\
+                 somma(succ(x), y) = C^3[S^1, P^3_3](x, y, somma(x, y))
+\end{array} \right.$$
+
+ed in breve si ottiene il nome da dare alla somma:
+$$Sum^2 := R^2[P^1_1, C^3[S^1, P^3_3]]$$	
+\end{esempio}
+
+\begin{esempio}
+[prodotto]
+
+$$\left\{
+\begin{array}{ll} prod(x, 0) = zero(x) = Z^1(x)\\
+                 prod(x, succ(y)) = somma(x, prod(x, y)) = C^3[Sum^2, P^3_1, P^3_3]](x, y, prod(x, y))
+\end{array} \right.$$
+Quindi il nome del prodotto è: 
+$$Prod^2 := R^2[Z^1, C^3[Sum^2, P^3_1, P^3_3]]$$	
+\end{esempio}
+
+
+
+
+\begin{defi}[Grado di un nome]
+Il \emph{grado del nome F di una funzione ricorsiva}, indicato con \emph{$\delta$(F)}, è il numero di simboli che appaiono nella scrittura di F, cioè il numero di Z, S, $P^n_i$, C[-,-,...,-], R[-,-] e M[-].
+\end{defi}
+
+Notiamo che ci sono una infinità numerabile di funzioni ricorsive di qualsiasi grado visto che possiamo costruire infiniti nomi utilizzando questi segni. Tuttavia, se poniamo un vincolo al numero di segni utilizzabili vale il seguente teorema. 
+
+\begin{thm}[Finitezza]
+ Il numero di funzioni ricorsive di arietà 1 a cui si può dare un nome utilizzando al più n simboli è finito.
+\end{thm}
+
+\begin{proof}
+Se per costruire il nome posso usare al massimo \emph{n} segni, allora posso al più utilizzare \emph{Z, S, C, R, M} e $P^k_i$ con \emph{$k \leq n$} e con questi posso solo scrivere nomi di lunghezza finita; perciò il numero di nomi diversi possibile è finito.
+ \end{proof}
+
+Vediamo ora come definire una funzione e dimostrare che non è ricorsiva.
+
+\begin{defi}[Produttività di una funzione ricorsiva]
+La \emph{produttività $p_F$} della funzione ricorsiva $f_F$ di nome F è il valore di $f_F$ su 0 se tale valore esiste ($f_F$ potrebbe essere una funzione parziale), 0 altrimenti.
+\end{defi}
+
+Possiamo allora definire la funzione di produttività \emph{p} nel modo seguente: $$p(n)=max_{\delta(F)\leq 2n + 1} p_F$$
+
+Si nota che la funzione di produttività \emph{p} è ben definita visto che, in conseguenza del teorema di finitezza, per ogni numero naturale \emph{n}, c'è un numero finito di funzioni ricorsive il cui nome si scrive con al massimo \emph{2n} + 1 simboli e quindi è possibile calcolare il massimo tra questo numero finito di valori.\\
+Per dimostrare che la funzione di produttività non è ricorsiva ne studiamo alcune proprietà molto elementari.
+
+\begin{prop}Per ogni n, $p(n) \geq n$.
+\end{prop}
+\begin{proof} 
+Consideriamo il nome da dare alla funzione unaria che ad ogni input associa il valore n:
+$$N_n := C[S, C[S,...C[S, Z]...]]$$
+dove ci sono \emph{n} coppie \emph{C} e \emph{S}. 
+Osserviamo che $\delta(N_n) = 2n + 1$ e quindi con \emph{2n} + 1 segni possiamo definire una funzione ricorsiva in grado di produre almeno \emph{n} come output quando applicata a 0.
+\end{proof}
+
+\begin{prop}Per ogni n, $p(n + 1) > p(n)$.
+\end{prop}
+\begin{proof} 
+Consideriamo una funzione ricorsiva \emph{f} il cui nome \emph{F} richiede al massimo 2\emph{n} + 1 simboli e che produca come output \emph{p(n)} quando applicata a 0. Allora la funzione di nome \emph{C[S, F]} richiede al massimo 2 + 2\emph{n} + 1 = 2(\emph{n} + 1) + 1 simboli e produce su 0 un output pari a \emph{$p(n) + 1 > p(n)$} e quindi \emph{$p(n + 1) \geq p(n) + 1 > p(n)$}. 
+\end{proof}
+
+La proposizione precedente mostra chiaramente che la funzione \emph{p} è strettamente monotona e quindi per ogni \emph{i} e \emph{j}, se \emph{$p(i) \leq p(j)$} allora \emph{$i \leq j$}.
+
+\begin{prop}Per ogni n, $p(n + 5) \geq 2n$.
+\end{prop}
+\begin{proof} 
+Vediamo come definire una funzione ricorsiva che raddoppi il suo input. Definiamo per ricorsione una funzione \emph{d} così definita:
+$$\left\{
+\begin{array}{ll} d(0) = 0\\
+                d(x + 1) = succ(succ(d(x))
+\end{array} \right.$$
+ Allora è immediato verificare che un nome per questa funzione è 
+$$D := R[M[Z], C[S, C[S, P^2_2]]]$$ 
+che richiede 8 segni.
+Se ora noi componiamo la funzione di nome \emph{$N_n$} che abbiamo definito in precedenza con la funzione di nome \emph{D} appena introdotta otteniamo il nome \emph{C[D, $N_n$]} che richiede $1 + 8 + 2n + 1 \leq 2(n + 5) + 1$ segni e definisce una funzione unaria che su input 0 produce output 2\emph{n}. 
+\end{proof}
+
+Siamo ora in grado di dimostrare che la funzione \emph{p} non può essere ricorsiva.
+
+
+\begin{thm}La funzione di produttività non è ricorsiva.
+\end{thm}
+\begin{proof}
+Supponiamo che \emph{p} sia una funzione ricorsiva. \\ Allora dovrebbe avere un nome \emph{P} e tale nome avrebbe un certo numero \emph{$k_p$} di simboli. Consideriamo ora il nome \emph{C[P, C[P, $N_n$]]}. Si tratta di un nome che richiede 1+ \emph{$k_p$} + 1 + \emph{$k_p$} + 2\emph{n} + 1 = 2(\emph{n} + 1 + \emph{$k_p$}) + 1 segni e che descrive una funzione ricorsiva il cui valore su 0 è uguale a \emph{p(p(n))}. Quindi \emph{$p(n + 1 + k_p) \geq p(p(n))$}. Ma allora in virtù della stretta monotonia della funzione \emph{p} otteniamo che, per ogni \emph{n}, \emph{$n + 1 + k_p \geq p(n)$}. \\Visto che tale disequazione vale per ogni \emph{n}, il risultato deve valere anche quando sostituiamo a \emph{n} il valore \emph{n + 5} ottenendo \emph{$n + 6 + k_p \geq p(n + 5)$}. Ma ora, in virtù della proposizione precedente, possiamo ricavare \emph{$n + 6 + k_p \geq p(n + 5) \geq 2n$} da cui si deduce che, per ogni \emph{n},  \emph{$k_p \geq n - 6$} che è assurdo visto che \emph{$k_p$} è il numero, fissato in partenza per ipotesi, dei simboli necessari per scrivere il nome della funzione di produttività. 
+ \end{proof}
