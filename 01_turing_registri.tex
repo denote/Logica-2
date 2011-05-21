@@ -1,5 +1,5 @@
 \newcommand{\bew}{\mathsf{Bew}}
-% per scrivere eqz più velocemente
+% per scrivere eqz pi velocemente
 \newcommand{\eq}[1]{\begin{equation} #1 \end{equation}}
 % per fare le parentesi squadrate
 \newcommand{\gdnum}[1]{\ulcorner #1 \urcorner}
@@ -29,7 +29,7 @@ astratti conosciuti come Macchine di Turing. Prima di tutto vediamo pi\`u in
 dettaglio come Turing descrive una macchina.
 
 Turing stesso paragon\`o una macchina al comportamento di un essere umano che
-sta eseguendo un calcolo.  Immaginiamo quindi un uomo seduto ad una scrivania
+sta eseguendo un calcolo. Immaginiamo perci\'o un uomo seduto ad una scrivania
 munito di carta e penna: immaginiamo quindi quest'uomo come una testina di
 controllo che possa scrivere simboli di un certo alfabeto su di un ipotetico
 foglio di carta che noi chiameremo nastro.
@@ -60,7 +60,7 @@ analizzando una cella alla volta: i simboli devono essere posizionati
 in celle vicine e si possono concatenare anche pi\`u input dividendoli
 al pi\`u da un carattere B di Blank. I caratteri di Blank si
 susseguono anche al di fuori della sequenza di simboli dati in input,
-occupando tutta la lunghezza infinita del nastro.  La testina \`e
+occupando tutta la lunghezza infinita del nastro. La testina \`e
 dotata di un numero finito di stati di memoria $q_i$. Lo stato ha la
 funzione di un'etichetta: ad uno stato $q_i$ corrisponde un'operazione
 se viene letto un simbolo $S_j$ e un'altra operazione se viene letto
@@ -73,7 +73,7 @@ trova, sa che simboli ha letto prima.
 \end{figure}
 
 La macchina legge, scrive oppure cancella i simboli nelle celle del nastro
-seguendo l'insieme di regole o quintuple,  che ne definiscono il comportamento.
+seguendo l'insieme di regole o quintuple, che ne definiscono il comportamento.
 Tali regole sono di questo tipo:
 
 \vspace{0.3cm}
@@ -167,10 +167,24 @@ semplicit\`a ci riconduciamo a calcoli su numeri naturali e vedremo
 che ci possiamo ridurre a considerare un alfabeto costituito
 unicamente dai simboli 1 e B: $$\Sigma=\left\{1,B\right\}$$ e quindi
 con tale alfabeto riusciremo a rappresentare tutti i numeri
-naturali. Notiamo infatti che \`e del tutto equivalente considerare un
-alfabeto con un simbolo o con n simboli ed i calcolatori, essendo
-rappresentazioni di Macchine di Turing ed usando l'alfabeto binario lo
-confermano.
+naturali.
+
+Dato infatti due insiemi finiti di simboli $\Delta$ e $\Gamma$ 
+esiste una biezione costruibile tra l'isieme $\Delta^*$ delle 
+parole su $\Delta$  e $\Gamma^*$ delle parole su $\Gamma$; 
+basta ordinare le parole dei due diversi insiemi per lunghezza 
+e lessicograficamente, e abbiamo trovato la biezione
+$\sigma: \Delta^*->\Gamma^*$ con inversa $\sigma^{-1}$. Questo
+induce una biezione tra le funzioni turing-calcolabili 
+$f:\Gamma^*->\Gamma^*$ e quelle $g:\Delta^*->\Delta^*$. 
+Basta infatti porre 
+$$g_f = \sigma^{-1} f \sigma \quad f_g=\sigma g \sigma^{-1}.$$ 
+Risulta facile da vedere che $g_{f_g}=g$ e $f_{g_f}=f$ come pure 
+che $(-)_f$ e $(-)_g$ mappano funzioni turing-calcolabili in funzioni 
+turing-calcolabili. Pertanto il problema della calcolabilit\`a di 
+una funzione con un alfabeto $\Gamma$ qualsiasi pu\`o essere 
+ricondotto a quello di un alfabeto con un solo simbolo $\{1\}$ e del carattere blank $B$.
+
 
 Introduciamo ora una notazione che ci permetter\`a di rappresentare i
 numeri naturali e quindi gli input da dare alle macchine (compreso lo
@@ -187,7 +201,7 @@ $$\overline{n}=1^{n+1}=\underbrace{11...1}_{n+1\ volte}\quad\mbox{.}$$
   interi non negativi associamo l'espressione
   $\overline{(n_{1}...n_{k})}=\overline{n_{1}}B...B\overline{n_{k}}$. Per
   esempio $$\overline{(1,4,0)}=\overline{1}B\overline{4}B\overline{0}=
-  11B11111B1\quad\mbox {.}$$ In questo caso si vede come si procede
+11B11111B1\quad\mbox {.}$$ In questo caso si vede come si procede
   per separare gli input, cio\`e inserendo un $B$.
 \end{itemize}
 
@@ -201,7 +215,7 @@ notazione data sopra. Converremo che ogni blocco rappresentante un
 argomento \`e separato dagli altri da un solo $B$; in questo modo la
 macchina sa dove inizia e termina l'input (se si incontrano due blank
 consecutivi, la testina non \`e pi\`u collocata su una delle celle di
-input).  La macchina di Turing su un dato input produce un output. Noi
+input). La macchina di Turing su un dato input produce un output. Noi
 accetteremo output della forma $$...BB\overline{n_r}BB...$$ ove
 $\overline{n_r}$ \`e il risultato della computazione. Dunque in output
 avremo il nastro contenente un blocco unico contenente tanti $1$
@@ -389,6 +403,46 @@ notazione $\overline{n}=1^{n+1}$, risulta effettivamente possibile
 dare in input alla macchina di Turing universale una coppia di numeri
 naturali espressi secondo questa notazione.
 
+\subsection{Funzionamento della Macchina di Turing Universale}
+
+Come gi\`a detto, la macchiona $T_U$ contiene sia la codifica 
+delle istruzioni della macchina, che chiamaremo $M$ , 
+sia l'imput $w$. Per semplificare il funzionamento, immaginiamo 
+che la macchiona $T_U$ operi con tre nastri
+\begin{enumerate}
+	\item un nastro per registrare lo stato in cui  la macchina 
+$M$ e il simbolo che viene letto
+	\item un nastro per la codifica effettiva delle quintuple 
+	che compongono la macchina di Turing $M$; 
+	\item un nastro dove vengono eseguite le istruzioni della 
+	macchina $M$ a partire dall'imput $w$.
+\end{enumerate}
+
+Ovviamente, si pu\`o usare un unico nastro, andando a suddividerlo 
+tramite dei demarcatori particolari; in questo caso parleremo di tre sezioni
+di un unico nastro. 
+
+Le operazioni che definiscono il funzionamento della macchina 
+$T_U$ sono le seguenti
+\begin{enumerate}
+	\item la $T_U$ inizier\`a leggendo il primo simbolo dell'imput $w$, 
+	$s_0$\, eporr\`a sul primo nastro la codifica di $q_0$
+	e $s_0$;
+	\item successivamente andr\`a a cercare nel secondo nastro la quintupla
+	che inizia con $(q_0,s_0)$. Sia ad esempio la stringa 
+	$<q_0,s_0,s_j,D,q_i>$, dove $D$ indica la direzione;
+	\item la $T_U$ andr\`a quindi ad eseguire l'operazione della quintupla
+	sul terzo nastro, legger\`a il simbolo dove si trova la testina, ad esempio 
+	$s_k$ e andr\`a a sostituire sul primo nastro $(q_0,s_0)$ con $(q_i,s_k)$;
+	\item il calcolo continuer finch\`e, data la coppia $(q_t,s_l)$
+	contenuta sul primo nastro, ci sar\`a una quintupla sul 
+	secondo nastro che comincia con $<q_t,s_l,...$; in caso contrario la $T_U$
+	ha finito di eseguire il calcolo.
+\end{enumerate}
+Il risultato del calcolo , ovvero l'output, apparir\`a come risultato 
+sul terzo nastro, sempre che la macchina si arresti. 
+ 
+
 
 \section{Cosa non pu\`o Essere Calcolato}
 Un altro sorprendente risultato presentato dall'articolo di Turing del
@@ -462,7 +516,7 @@ Diamo ora qualche esempio di semplici macchine di Turing.\\
   scambia le occorrenze di 1 con 0 e viceversa, riposizionandosi sulla
   cella precedente a quella iniziale.\\ \underline{Passi:} leggere i
   simboli sul nastro e ogni volta che si trova 1 si scrive 0 e
-  viceversa. Quando la sequenza di 0 e 1 è finita la testina torna
+  viceversa. Quando la sequenza di 0 e 1  finita la testina torna
   sulla cella precedente alla prima significativa.\\
 
 Nastro in input:$$...BB100101BB....$$\\
@@ -639,7 +693,7 @@ Grafico:
 \hspace{0cm} \xymatrix@=40pt{\roundentry{q_{0}} \ar[r]^{1|BR} &
   \roundentry{q_{1}} \ar@(dr,dl)[]^{1|1R} \ar[r]^{B|BR} &
   \roundentry{q_{2}} \ar@(dr,dl)[]^{1|1R} \ar[r]^{B|BL} &
-  \roundentry{q_{3}} \ar@(dr,dl)[]^{1|BL} \ar[r]^{1|BL} &
+  \roundentry{q_{3}} \ar[r]^{1|BL} &
   \roundentry{q_{4}} \ar[r]^{B|1L} \ar[d]^{1|1L} & \roundentry{q_{9}}
   \ar@(dr,dl)[]^{1|1L} \ar[r]^{B|BR} & \roundentry{q_{10}} \\ &&&&
   \roundentry{q_{5}} \ar@(dr,dl)[]^{1|1L} \ar[r]^{B|BL} &
@@ -738,7 +792,7 @@ precedente definendo una \textsl{sottrazione adeguata}:\\
 \begin{center}
 $g(x,y)=x\dot{-} y=
 \left\{ \begin{array}{ll}
-x-y &  x \geq y\\
+x-y & x \geq y\\
 0 & \textrm{altrimenti}
 \end{array} \right.$
 \end{center}
@@ -771,6 +825,12 @@ definita sull'input dato. In questo modo la macchina di Turing che la
 calcola termina sempre su qualunque input, ma questo tipo di modifica
 in generale non \`e sempre possibile.\\
 \end{esempio}
+
+\begin{extra}
+Dare le istruzioni (o il diagramma) di una macchina di Turing che, presi in input due numeri naturali, ne restituisce in output la somma. 
+
+E se volessi ``ricordare'' il primo input? Ossia se chiedessi in output il primo dei due numeri e la loro somma? 
+\end{extra}
 
 \begin{esempio}[Prodotto]
 Calcoliamo ora il prodotto di due numeri\\ \underline{naturali non
@@ -853,7 +913,7 @@ eseguire si chiama Assembler ed \`e poco pi\`u che una stringa di 0 e
 programmazione. Successivamente sono stati inventati dei linguaggi di
 pi\`u alto livello: si tratta di linguaggi pi\`u comprensibili che non
 vengono eseguiti direttamente, ma vengono trasformati da un
-metaprogramma in istruzioni del linguaggio Assembler.  Allo stesso
+metaprogramma in istruzioni del linguaggio Assembler. Allo stesso
 modo qui abbandoniamo il linguaggio macchina, che \`e quello delle
 macchine di Turing (elementare, ma niente affatto banale, perch\'e
 questo resta quello che sapremo fare), e adesso diamo delle istruzioni
@@ -865,7 +925,7 @@ Ogni funzione calcolabile a registri \`e Turing-cal\-co\-la\-bi\-le.
 \textsc{Dimostrazione}: \`e ovvio perch\'e, per le motivazioni scritte
 sopra, ciascuna operazione eseguibile con una macchina a registri non
 \`e altro che un insieme strutturato di istruzioni che definiscono una
-macchina di Turing che calcola la medesima operazione.\\
+macchina di Turing che calcola la medesima operazione; vedremo alla fine del capitolo alcuni dettagli di questa corrispondenza.\\
 
 Per proseguire con la definizione di macchina a registri, dobbiamo
 introdurre dei registri di memoria dove inserire dei valori numerici
@@ -880,7 +940,7 @@ se abbiamo \( k \) ingressi possiamo usare i blocchi dal \( k + 1
 a vedere cosa c'\`e nel \( k + 1 \)-esimo posto dobbiamo spostarci sul
 nastro, memorizzando dove eravamo e tornare indietro con inserita,
 dentro lo stato interno, l'informazione; tutto ci\`o risulta molto
-complicato.  Ora invece vediamo che \`e possibile definire un
+complicato. Ora invece vediamo che \`e possibile definire un
 linguaggio che faccia queste cose in modo automatico.
 
 I registri contengono sempre un numero intero positivo. Un aspetto
@@ -902,7 +962,7 @@ sono:
 Indicando con un \( n \) cerchiato il registro \( R_n \), scriviamo:
 \begin{itemize}
 \item \( n+ \) cerchiato per indicare l'operazione ``aggiungi 1 al registro \( R_n \)''
-\item  \( n- \) cerchiato, per indicare l'operazione ``se il registro \( R_n \) non \`e vuoto
+\item \( n- \) cerchiato, per indicare l'operazione ``se il registro \( R_n \) non \`e vuoto
 sottrai 1''.
 \end{itemize}
 
@@ -926,7 +986,7 @@ con le macchine a registri.
     Abbiamo supposto che, dati \( n \) registri, abbiamo accesso
     diretto \mbox{all' \( i \)-esimo} registro. Vogliamo l' output nel
     registro specifico da noi scelto (\textbf{ad esempio}) \( R_{3}
-    \). Basta quindi accedere all' \( i \)-esimo registro e svuotarlo
+\). Basta quindi accedere all' \( i \)-esimo registro e svuotarlo
     in \( R_{3} \).
 
     \begin{figure}[hbtp]
@@ -942,8 +1002,8 @@ con le macchine a registri.
 \begin{esempio}[Successore]
 
     Partiamo con l' input in \( R_1 \) e vogliamo l' output in \(
-    R_{3} \). Iniziamo aggiungendo 1 in \( R_{3} \) e poi svuotiamo \(
-    R_1 \) in \( R_{3} \). (Si noti che non \`e detto che la macchina
+R_{3} \). Iniziamo aggiungendo 1 in \( R_{3} \) e poi svuotiamo \(
+R_1 \) in \( R_{3} \). (Si noti che non \`e detto che la macchina
     debba partire da \( R_1 \).)
 
     \begin{figure}[hbtp]
@@ -959,10 +1019,10 @@ con le macchine a registri.
 \begin{esempio}[Differenza] \ \\
     \begin{center}
     $n \dot{-} m=
-    \left\{ \begin{array}{ll}
-    n-m & \textrm{se } m \leq n\\
-    0 & \textrm{altrimenti}
-    \end{array} \right.$
+\left\{ \begin{array}{ll}
+n-m & \textrm{se } m \leq n\\
+0 & \textrm{altrimenti}
+\end{array} \right.$
     \end{center}
 
 
@@ -970,8 +1030,8 @@ con le macchine a registri.
     \( n \) e \( m \) e vogliamo l' output in \( R_{3} \) (che
     supponiamo inizialmente vuoto). Iniziamo togliendo 1 da \( R_2 \),
     poi sottraiamo 1 da \( R_1 \); continuiamo cos\`i fino a che \(
-    R_2 \) \`e vuoto. A questo punto il contenuto di \( R_1 \) \`e $n
-    - m$ e lo svuotiamo in \( R_{3} \). Se invece \( R_1 \) resta
+R_2 \) \`e vuoto. A questo punto il contenuto di \( R_1 \) \`e $n
+- m$ e lo svuotiamo in \( R_{3} \). Se invece \( R_1 \) resta
     vuoto prima che si sia svuotato \( R_2 \) (cio\`e $n < m$) ci
     fermiamo (\( R_{3} \) \`e rimasto vuoto).
 
@@ -983,7 +1043,7 @@ con le macchine a registri.
      & \roundentry{3+} \ar@(d,dl)[u]
     }
 
-   %  \includegraphics[scale=0.5]{diffeLabel.png}
+   % \includegraphics[scale=0.5]{diffeLabel.png}
     \caption{Macchina a registri che calcola la differenza $n \dot{-} m$}
     \end{figure}
 
@@ -1000,14 +1060,14 @@ con le macchine a registri.
     \( R_1 \). L' operazione da eseguire \`e la seguente:
 
     Partiamo dal registro \( R_1 \): togliamo 1 dal contenuto di \(
-    R_1 \), aggiungiamo 1 a quello di \( R_2 \) e poi aggiungiamo 1 in
+R_1 \), aggiungiamo 1 a quello di \( R_2 \) e poi aggiungiamo 1 in
     \( R_3 \). Ripetiamo queste operazioni fino a che \( R_1 \) rimane
     vuoto; ci\`o significa che abbiamo ``svuotato'' \( R_1 \) in \(
-    R_2 \) e quindi in \( R_2 \) alla fine c' \`e \( m+n \), mentre in
+R_2 \) e quindi in \( R_2 \) alla fine c' \`e \( m+n \), mentre in
     \( R_3 \) c' \`e \( m \), perch\'e ogni volta che passiamo in \(
-    R_2 \) (\( m \) volte), aggiungiamo 1. Poi svuotiamo \( R_3 \) in
+R_2 \) (\( m \) volte), aggiungiamo 1. Poi svuotiamo \( R_3 \) in
     \( R_1 \), cio\`e togliamo 1 da \( R_3 \) e aggiungiamo 1 in \(
-    R_1 \) fino a quando \( R_3 \) rimane vuoto. A questo punto
+R_1 \) fino a quando \( R_3 \) rimane vuoto. A questo punto
     abbiamo finito.
 
     \begin{figure}[hbtp]
@@ -1035,15 +1095,15 @@ con le macchine a registri.
     registro \( R_1 \), svuotiamo il registro \( R_2 \), che
     all'inizio contiene \( n \), nel registro \( R_3 \) e allo stesso
     tempo mettiamo la stessa quantit\`a \( n \) nel registro \( R_4
-    \); quando il registro \( R_2 \) \`e svuotato, rimettiamo il
+\); quando il registro \( R_2 \) \`e svuotato, rimettiamo il
     contenuto del registro \( R_4 \) nel registro \( R_2 \). A questo
     punto nel registro \( R_2 \) c'\`e \( n \), in \( R_4 \) c'\`e 0
     ed in \( R_3 \) c'\`e \( n \). Quindi ritorniamo al registro \(
-    R_1 \) e sottraiamo un altro 1; ripetiamo l'operazione, e cio\'e
+R_1 \) e sottraiamo un altro 1; ripetiamo l'operazione, e cio\'e
     la quantit\`a \( n \) del registro \( R_2 \) va svuotata nel
     registro \( R_3 \), quindi \( R_3 \) avr\`a \( n \) + \( n \) e \(
-    R_4 \) avr\`a \( n \). Quando \( R_2 \) \`e vuoto risvuotiamo \(
-    R_4 \) in \( R_2 \) e ripetiamo questo ciclo finch\'e \( R_1 \)
+R_4 \) avr\`a \( n \). Quando \( R_2 \) \`e vuoto risvuotiamo \(
+R_4 \) in \( R_2 \) e ripetiamo questo ciclo finch\'e \( R_1 \)
     non \`e vuoto. Quando quest'ultimo \`e vuoto ci fermiamo e
     leggiamo il risultato in \( R_3 \).
 
@@ -1064,12 +1124,12 @@ con le macchine a registri.
     Supponiamo che $ f $ e $ g $ siano due funzioni calcolabili a
     registri e vogliamo dimostrare che $ g\circ f $ \`e calcolabile a
     registri. Esistono quindi due macchine a registri \( M_f \) e \(
-    M_g \) che calcolano rispettivamente \( f \) e \( g \) partendo
+M_g \) che calcolano rispettivamente \( f \) e \( g \) partendo
     dal registro \( R_1 \) e restituendo l' output in \( R_42
-    \). Af\mbox{}f\mbox{}inch\'e non ci siano ambiguit\`a bisogna
+\). Af\mbox{}f\mbox{}inch\'e non ci siano ambiguit\`a bisogna
     cambiare i nomi ai registri di \( M_g \), e quindi costruire una
     macchina a registri \( M_{g'} \) i cui re\-gi\-stri siano \(
-    R_{n+1} \), \ldots, \( R_{n+42} \), con \( n \) maggiore del
+R_{n+1} \), \ldots, \( R_{n+42} \), con \( n \) maggiore del
     numero di registri di \( M_f \). A questo punto facciamo partire
     \( M_f \), questa restituisce l' output in \( R_{42} \), che
     svuotiamo in \( R_{n+1} \). Basta poi far partire \( M_{g'} \) e
@@ -1090,10 +1150,36 @@ con le macchine a registri.
 Ora che abbiamo visto come funzionano le macchine a registri, diamo
 una definizione formale di "funzione calcolabile a re\-gi\-stri".
 
-\begin{thm}
-Una funzione \( f \) (di \( n \) variabili) \`e calcolabile a registri
+\begin{defi}
+Una funzione \( f \) (di \( n \) variabili) \`e \emph{calcolabile a registri}
 se esiste una macchina a registri che, mettendo gli input \( x_1,
 \ldots,\\ x_n \) nei registri pref\mbox{}issati \( R_1, \ldots, R_n
 \), d\`a output \( f(x_1, \ldots, x_n) \) per ogni \( x_1, \ldots, x_n
 \).
-\end{thm}
+\end{defi}
+
+Per dimostrare rigorosamente che ogni funzione calcolabile a registri \`e anche Turing calcolabile dovremmo mostrare che ogni macchina a registi \`e riconducibile ad una macchina di Turing che calcola la stessa funzione.
+
+In particolare quindi dovremmo avere:
+\begin{itemize}
+\item porzioni di nastro che rappresentano i vari registri
+\item istruzioni della MdT che simulano le istruzioni della macchina a registri (quindi in particolare le tre operazioni base: incremento, decremento, accesso diretto)
+\end{itemize}
+ 
+Chiaramente per poter fare ci\`o \`e necessario partire da una macchina a registri specifica (se non altro per sapere di quanti registri abbiamo bisogno e quante celle di nastro dedicare ad ognuno).
+
+Supponiamo dunque di avere una macchina specifica:
+\begin{itemize}
+\item \emph{simulazione dei registri:} sapendo il numero di registri e il loro contenuto, possiamo facilmente ordinare sul nastro il contenuto dei vari registri, separati da un segno B; ad esempio
+\begin{center}
+BB1111B11B1B1BB
+\end{center}
+rappresenta una macchina a registri, con 4 registri: $R_1$ conenente 3, $R_2$ contenente 1 e $R_3$ e $R_4$ inizializzati a zero
+\item \emph{accesso diretto:} supponiamo di voler accedere al registro k-esimo, allora baster\`a far scorrere il nastro alla testina fino a quando non avr\`a trovato k-1 simboli di B (chiaramente non consecutivi); nell'esempio di prima, volendo accedere al secondo registro, bisogner\`a che la testina scorra tutto il ``primo registro'', ossia tutta la stringa 1111 e si sposti a destra dopo aver letto il simbolo B, quindi proprio sul primo 1 del ``secondo registro''.
+\item \emph{incremento:} abbiamo gi\`a visto una MdT che calcola il successore di un numero naturale: l'unica accortezza che bisogna avere \`e quella di far slittare il restante contenuto del nastro per non ``invadere'' il regitro successivo (o precedente se abbiamo aggiunto l'1 a sinistra della stringa).
+\item \emph{decremento:} similmente all'incremento, basta sostituire il primo (o l'ultimo) 1 della stringa che rappresenta il contenuto del registro da decrementare con un simbolo B, e slittare a destra (sinistra) la porzione di nastro che lo precede (segue). In questo caso, prima di svolgere l'operazione, \`e necessario controllare che il registro non sia vuoto, ossia che non contenga un unico 1: se cos\`i fosse, invece di eseguire il decremento bisogner\`a eseguire un accesso diretto ad un altro registro.
+
+ 
+\end{itemize}
+
+Giustapponendo queste MdT a seconda delle istruzioni della macchina a registri di partenza otteniamo una MdT che la simula.
