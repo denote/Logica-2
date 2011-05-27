@@ -4,29 +4,38 @@
 Quotidianamente l'uomo al fine di argomentare, strutturare discorsi e giungere a conclusioni fa uso della logica e di un linguaggio formale ben preciso che gli permette di evitare ambiguit\`a e ridondanze durante un colloquio.\\
 Di fondamentale importanza sono le \emph{deduzioni formali} in quanto forzano la verit\`a delle nostre argomentazioni perch\`e ci permettono di definire in modo chiaro le premesse da cui partiamo e le varie regole di inferenza che utilizziamo per arrivare alla conclusione.\\
 Quello che a noi interessa quindi sono le \emph{prove} che portiamo per mostrare se determinate proposizioni sono vere e perch\`e lo sono.\\
-Per questo abbiamo bisogno di una \emph{teoria assiomatica formale}, cio\`e di una teoria formale in cui \`e possibile esprimere enunciati e dedurre le loro conseguenze logiche in modo del tutto formale e meccanico.\\
-\vspace{0.3 cm}
+L'esempio pi\`u antico di teoria assiomatica in questo senso \`e dato dagli "Elementi" di Euclide e si pu\`o dire che, ad oggi, quasi tutta la matematica \`e sviluppata in modo assiomatico, anche se spesso non vengono specificati a quale insieme di assiomi si faccia riferimento.
+
+Quello di cui noi abbiamo bisogno \`e una \emph{teoria assiomatica formale}, cio\`e  una teoria formale in cui \`e possibile esprimere enunciati e dedurre le loro conseguenze logiche in modo del tutto formale e meccanico.\\
 
 Una \emph{teoria assiomatica} $T$ nel linguaggio $\mathcal{L}$ \`e determinata da un calcolo logico $L$ e da un insieme $\Sigma$ (anche infinito) di formule di $\mathcal{L}$ chiamate assiomi di $T$. Si dice che $\varphi$ \`e conseguenza logica di $\Gamma$\footnote{Con $\Gamma$ indichiamo l'insieme di tutte le assunzioni (premesse) di $T$} in $T$ se esiste una deduzione in $L$ con conclusione $\varphi$ e assunzioni contenute in $\Gamma \cup \Sigma$. In particolare, si dice che $\varphi$ \`e un teorema di $T$ se esiste una deduzione di $\varphi$ con assunzioni tutte contenute in $\Sigma$
 
 
+Noi vogliamo inoltre che una teoria assiomatica soddisfi le seguenti propriet\`a:
+\begin{description}
+\item[Coerenza]
+La coerenza, o non contraddittoriet\`a \`e la caratteristica di una teoria assiomatica di non permettere di dedurre una qualche proposizione e, contemporaneamente, la sua negazione. 
+Ovviamente se la teoria \`e in grado di dimostrare una proposizione e la sua negazione la teoria non ha alcun senso, perché da quella possiamo (\textit{Ex falso quodlibet}) dedurre qualsiasi proposizione, quindi la teoria perde di significato.
+\item[Decidibilit\`a degli assiomi] Significa che deve esistere una procedura effettiva per poter stabilire se una qualche proposizione \`e o meno un assioma della teoria.
+\item[Indipendenza] Questa propriet\`a non \`e in realta, indispensabile, quanto le altre, per\`o torna utile.
+In sostanza una teoria si dice indipendente se ogni suo assioma \`e indipendente dai restanti assiomi. 
+\end{description}
+
 \vspace{0.4 cm}
-Gli elementi fondamentali di una teoria assiomatica dunque sono:
+Vediamo allora gli elementi fondamentali di una teoria assiomatica:
 \begin{enumerate}
 	\item un \textsl{\textbf{linguaggio formalizzato}} $\mathcal{L}$
 \item un insieme di enunciati nel linguaggio che trattiamo come \textsl{\textbf{assiomi}} della teoria
 \item un \textsl{\textbf{sistema deduttivo}} per costruire prove, ossia per derivare teoremi da assiomi
 
 \end{enumerate}
-Il linguaggio formalizzato $\mathcal{L}$ consiste di:
+Un linguaggio formalizzato $\mathcal{L}$ consiste di:
 \begin{itemize}
-	\item un \underline{alfabeto} $\alpha$ di simboli che possono essere le variabili, i connettivi e i quantificatori e i simboli relazionali
-\item \underline{regole di costruzione sintattica} che permettono di determinare quali stringhe finite di simboli di $\alpha$ costituiscono il vocabolario delle costanti individuali (nomi), delle variabili, dei predicati e delle funzioni
-	\item \underline{regole per determinare} quali sequenze di parole in questo vocabolario  ci danno \underline{formule} di $\mathcal{L}$
+\item un \underline{alfabeto} $S$ di simboli che possono essere le variabili, i connettivi e i quantificatori e i simboli relazionali
+\item \underline{regole di costruzione sintattica} che permettono di costruire espressioni accettate dal sistema.
 \end{itemize}
 \vspace{0.5 cm}
-Mentre per quanto rigurda il sistema deduttivo \`e importante specificare che cosa \`e una prova.\\
-Una \textbf{prova} \`e \textit{un vettore \textsl{finito} di formule conforme alle regole del sistema e le cui assunzioni appartengono solo al sistema di assiomi}.\\
+
 Dal momento che le prove sono composte da un numero finito di passaggi logici, allora per ogni prova esister\`a solo un numero finito di assiomi coinvolti. \\
 Specifichiamo infine che fornire una prova non significa decidere in anticipo se questa prova esiste o meno. Noi siamo interessati non ad argomentazioni semantiche ma a derivazioni nel sistema formale HA, che \`e l'equivalente \textsl{costruttivo} della teoria assiomatica di Peano, di cui parleremo tra breve.
 
@@ -40,8 +49,9 @@ Quindi, dati gli assiomi che regolano la struttura di una sequenza di naturali e
 Questo fatto \`e proprio ci\`o che viene affermato nel primo teorema di G\"odel: ogni teoria aritmetica di base assiomatizzata rimane incompleta, qualsiasi sforzo si faccia per completarla con altri assiomi.\\
 Quindi qualsiasi teoria matematica assiomatizzata con un'aritmetica di base costituita dalle operazioni di somma e moltiplicazione in $\mathbb{N}$ deve essere incompleta e incompletabile (consistente e con alcuni enunciati non dimostrabili).
 
-\section{Assiomi di HA}
-Definiamo ora il sistema assiomatico PA e di conseguenza il sistema HA. Infatti l'aritmetica di Heyting HA formalizza la teoria intuizionista dei numeri.\\ Essa ha gli stessi assiomi propri dell'aritmetica classica PA, a cui si aggiunge l'apparato deduttivo della logica intuizionista. \\I teoremi di HA sono quindi necessariamente un sottoinsieme proprio dei teoremi di PA. L'assioma di induzione appartiene sia a PA che ad HA e questo riflette le posizioni della matematica intuizionista sul carattere costruttivo della successione dei numeri naturali. Come sappiamo, per far ci\`o, dobbiamo specificare il \textsl{linguaggio}, gli \textsl{assiomi} e il \textsl{sistema di prova deduttivo}.\\
+\section{Costruzione di HA}
+\subsection{Linguaggio LA}
+Quello che ci poniamo di fare ora è definire il sistema assiomatico PA e di conseguenza il sistema HA. Infatti l'aritmetica di Heyting HA formalizza la teoria intuizionista dei numeri.\\ Essa ha gli stessi assiomi propri dell'aritmetica classica PA, a cui si aggiunge l'apparato deduttivo della logica intuizionista. \\I teoremi di HA sono quindi necessariamente un sottoinsieme proprio dei teoremi di PA. L'assioma di induzione appartiene sia a PA che ad HA e questo riflette le posizioni della matematica intuizionista sul carattere costruttivo della successione dei numeri naturali. Come abbiamo visto prima, per far ci\`o, dobbiamo specificare il \textsl{linguaggio}, gli \textsl{assiomi} e il \textsl{sistema di prova deduttivo}. Del primo parleremo ora.
 Definiamo dunque:
 \begin{enumerate}
  \item \underline{\texttt{il linguaggio al primo ordine LA}}\footnote{LA sta per \textsl{linguaggio dell'aritmetica}}, il cui vocabolario comprende:
@@ -55,6 +65,9 @@ Definiamo dunque:
 	\item[-] i segni $,$, $($, $)$
 \end{itemize}
 \vspace{.5cm}
+Seguendo quanto detto prima, dobbiamo ora dare le regole per la costruzione di espressioni accettate. Lo faremo
+definendo in modo induttivo i termini e le formule. Intuitivamente i termini sono i mattoni con cui si costruiranno le formule, mentre queste ultime saranno le espressioni sulle quali lavoreremo.
+
 \item L'\underline{\texttt{insieme dei termini $Trm$}} \`e definito in modo induttivo come segue:
 \begin{itemize}
 \item[-] La costante $0$ \`e un termine;
@@ -87,13 +100,14 @@ $\prooftree
 \endprooftree$ 
 
 \end{itemize}
-\vspace{.5cm}
-\item \underline{\texttt{gli assiomi}} che si basano sui postulati di Peano e li vedremo in dettaglio tra poco
-\vspace{.5cm}
-\item \underline{\texttt{il sistema di prova deduttivo}} che \`e una qualche versione standard di logica al primo ordine costruttiva (dunque senza assunzione del principio del terzo escluso) con identit\`e (le differenze tra le varie versioni sono insignificanti)
-\end{enumerate}\par\ \par\noindent
 
-I \underline{postulati} di Peano, sui quali si basa la nostra teoria, sono:
+\end{enumerate}\par\ \par\noindent
+\vspace{.5cm}
+
+E con questo abbiamo deinito il linguaggio che useremo.
+\subsection{Assiomi}
+Questa teoria assiomatica mira alla costruzione dei numeri naturali e all'aritmetica tutta, quindi i suoi 
+assiomi si baseranno sui postulati di Peano, che sono i seguenti:
 \begin{enumerate}
 	\item[(P1)] $0$ \`e un numero naturale
 	\item[(P2)] Se $x$ \`e un numero naturale, allora esiste un altro numero na-turale, detto \textsl{successore} di $x$, denotato con $s(x)$
@@ -102,6 +116,65 @@ I \underline{postulati} di Peano, sui quali si basa la nostra teoria, sono:
 	\item[(P5)] Sia $P$ una certa propriet\`a sui numeri naturali. Se $P$ vale per $0$ e se per ogni numero naturale $x$ che gode della propriet\`a si ha che $s(x)$ gode di $P$, allora $P$ vale per ogni naturale (non \`e altro che il \textsl{principio di induzione})
 \end{enumerate}\par\ \par\noindent
 
+Prima di mostrare come saranno fatti gli assiomi della nostra teoria vediamo un paio di osservazioni.
+
+La prima \`e la seguente:
+per noi che abbiamo in mente gi\`a la struttura dei Naturali, tutti questi assiomi, sembrano sovrabbondanti, e saremmo portati a dire che bastano solamente gli assiomi \textbf{(P1)} e \textbf{(P2)}.
+Notiamo invece che, una struttura ad anello, che parte dallo 0 e dopo un certo numero di passi (iterazioni della funzione successore) torna sullo 0, soddisfa ai due assiomi, ma \`e ben lontana dal descrivere i Naturali.
+
+Possiamo allora introdurre l'assioma \textbf{(P3)}, per dire che 0 non pu\`o essere il successore di alcun numero.
+Ancora una volta per\`o possiamo facilmente trovare una struttura che renda veri gli assiomi ma che non rappresenti i Naturali. Tale struttura per esempio \`e data da una ``corona del rosario'', ovvero una struttura come la precedente con l'aggiunta dello 0 in testa.
+
+Ancora allora possiamo aggiungere il postulato \textbf{(P4)}, e sperare che ci basti.
+Ovviamente non \`e cos\`i come mostra la seguente struttura:
+consideriamo come dominio di interpretazione l'insieme dato da tutte le sequenza del tipo \textit{0,00,000,...}
+e le sequenze analoghe a partire da un qualche altro elemento \textit{a,aa,aaa,...}. Come funzione successore possiamo prendere quella che data una sequenza \textit{s} dell'insieme, restituisca la pi\`u piccola di quelle sequenze che contenga propriamente \textit{s}. Si dimostra facilmente che questa struttura soddisfa a tutti i primi quattro postulati, ma non all'induzione e, naturalmente, non rappresenta i Naturali (in realt\`a rappresenta la giustapposizione di due copie di $\mathbb{N}$).
+
+Questo per dire che dobbiamo sempre tenere a mente che quello che stiamo cercando di fare \`e di trasmettere la nostra idea di $\mathbb{N}$ ad un robot, attraverso gli assiomi, ed in conclusione possiamo dire che ci servono tutti.
+
+\vspace{0.3cm}
+La seconda osservazione richiede un paio di definizioni e di spostarci da un sistema al I ordine, ad uno del II.
+\begin{defi}
+Dati un insieme $A$, un elemento $a_0$ ed una funzione $s:A\rightarrow A$, la terna $(A,a_0,s)$ si dice \textit{Sistema di Peano} se soddisfa a:
+\begin{itemize}
+\item $ a_0 \in A $
+\item $ a\in A \rightarrow s(a) \in A $
+\item $ s(x)=s(y)\rightarrow x=y $
+\item $ \forall x (a_0\neq s(x)) $
+\item $ \forall P $ propriet\`a $ (P(a_0)\&(P(a)\rightarrow P(s(a)))\rightarrow \forall a(P(a))) $
+\end{itemize}
+\end{defi}
+
+Si nota subito che questa \`e una generalizzazione degli assiomi di Peano che abbiamo visto sopra e che la terna $(\mathbb{N},0,s)$ \`e un sistema di Peano.
+La domanda sorge ora spontanea: visto che abbiamo generalizzato, questa terna \`e l'unico sistema di Peano possibile?
+Si vede facilmente che cos\`i non \`e, ovvero possiamo esibire un'altra terna che non sia $(\mathbb{N},0,s)$ e che soddisfi a quei cinque assiomi, per esempio $(\mathbb{P},2,n\mapsto n+2)$, dove con $ \mathbb{P} $ indichiamo l'insieme dei numeri pari.
+In realt\`a esiste una corrispondenza biunivoca, che ``mantiene il successore'' tra i due sistemi che abbiamo visto.
+Pi\`u precisamente diamo la seguente 
+\begin{defi}
+Dati due sistemi di Peano $ (A,a_0,s) $ e $ (B,b_0,t) $, si dice Isomorfismo tra i due, il dato di due funzioni:
+$ f:A\rightarrow B $, $ g:B\rightarrow A $, tali che:
+\begin{enumerate}
+\item $ f(a_0)=b_0 $
+\item $ f(s(a))=t(f(a)) $ per ogni $ a\in A $
+\item $ g\circ f=1_A $ e $ f\circ g=1_B $
+\end{enumerate}
+e se tali funzioni esistono allora i due sistemi si dicono isomorfi.
+\end{defi}
+
+Con questa definizione ginugiamo infine al seguente 
+\begin{thm}
+Ogni sistema di Peano $ (A,a_0,t) $ \`e isomorfo a $ (\mathbb{N},0,s) $ (e quindi sono tutti isomorfi tra loro).
+\end{thm}
+
+La dimostrazione \`e semplice e lasciata per esercizio, considerando le due funzioni:
+$ f:\mathbb{N}\rightarrow A $ che manda lo 0 in $ a_0 $ ed il numero $ k $ nell'elemento $ tt...t(a_0) $ k-volte e
+$ g:A\rightarrow \mathbb{N} $ costruita in maniera totalmente speculare. (L'unica nota a cui stare attenti \`e che sembra non ovvio che si possa scrivere ogni elemento di $ A $ come risultato dell'applicazione della funzione successore un numero finito di volte a partire da $ a_0 $; ma questo in realt\`a si pu\`o dimostrare per induzione prendendo proprio come propriet\`a questa appena descritta.)
+
+\vspace{0.3cm}
+Questa bella propriet\`a di $ \mathbb{N} $, ovvero di essere l'unico modello a meno di isomorfismi, non \`e pi\`u valido in una teoria al prim'ordine, come quella che stiamo costruendo noi. La dimostrazione non la daremo qui, ma \`e facilmente reperibile [\textit{cfr Zanardo, Metodi assiomatici e teoria degli insiemi, dispense}]
+
+\vspace{0.5cm}
+Siamo giunti finalmente a mostrare quali saranno i nostri assiomi.
 Gli \underline{\textbf{assiomi}} di HA dunque sono:
 \begin{enumerate}
 	\item[(A1)] $\vdash 0\neq s(x)$ (corrisponde a (P3))
@@ -132,18 +205,8 @@ Si noti che:
 \underline{\texttt{Osservazione}} Non sono stati dati, almeno esplicitamente, assiomi corrispondenti ai postulati (P1) e (P2). In realt\`a, essi seguono dal fatto che consideriamo $\mathbb{N}$ come dominio di interpretazione e dall'aver definito nel nostro linguaggio la costante $0$ ($0$ \`e automaticamente elemento di $\mathbb{N}$) e la funzione a un solo argomento successore (che vogliamo sia totale, dunque se $x$ \`e un elemento, anche $s(x)$ lo \`e).
 \par\ \par\noindent
 
-Questa serie di assiomi sembra per noi sovrabbondante. Infatti, avendo gi\`a l'idea di $\mathbb{N},$ si sarebbe portati a definire i naturali nel modo seguente:\\ 
-\emph{definisco $0$ e poi definisco $1$ come il successore di $0$, $2$ come il successore del successore di $0$ e cos\`i via.}\\ 
-E' chiaro quindi che i naturali si possono concepire, a partire da $0,$ come una "`linea retta"' di cui consideriamo solo i punti interi positivi.\\
-Ma per un robot invece, tali assiomi sono fondamentali per la definizione dei numeri naturali, in quanto non ha modo di costruire la stessa struttura di $\mathbb{N}$ come noi abbiamo in mente.\\
-%Questo per\`o un robot (ad esempio) non lo pu\`o fare, in quanto non ha la minima idea della struttura di $\mathbb{N}$ che noi abbiamo in mente.\\ 
-Vediamo infatti che cosa succede se forniamo al robot soltanto i postulati P1 e P2: potrebbe costruire i naturali come una "`corona del rosario"' senza cadere in contraddizione con gli stessi. Infatti potrebbe partire dallo $0$, fare ad esempio dieci applicazioni del successore di $0$ e poi chiu-dere il cerchio sullo $0$ iniziale e questo, il robot, lo considererebbe un modello corretto per i naturali, in quanto \`e palese che soddisfa ai due assiomi proposti. \\ L'uomo potrebbe cercare di correggere il tutto inserendo il postulato P3 per far si che $0$ non sia il successore di nessun numero naturale, come vuole la nostra intuizione. Nuovamente, senza cadere in contraddizione, il robot potrebbe costruire un suo modello di $\mathbb{N}$ che neanche lontanamente assomiglia a quello reale, ma che d'altra parte non \`e in contraddizione con P1, P2 e P3 e potrebbe essere una "`corona del rosario"', come nel caso precedente, a cui viene aggiunto (e ovviamente collegato) un "`punto esterno"' (lo zero appunto).\\ Qui non si cade in contraddizione con P3 perch\`e $0$, che \`e esterno alla "`corona"', non ha effettivamente numeri naturali prima di s\`e, d'altra parte i numeri naturali che abbiamo in mente hanno una struttura assai differente. \\ Come si nota, i soli P1, P2 e P3 possono dar luogo a una "`circolarit\`a"', un loop, nella struttura e per eliminare questa possibilit\`a \`e necessario assumere almeno un altro postulato come P4. Si potrebbe pensare che basti quest'ultimo per concludere. Eppure un'ulteriore struttura ben pi\`u complessa renderebbe veri i primi postulati, ma non creerebbe affatto l'idea di $\mathbb{N}$ che vogliamo, n\`e tantomeno la possibilit\`a di indurre su ogni naturale. \\ Ecco perch\`e \`e necessario introdurre anche il postulato di induzione.\\
-Bisogna dunque dare al robot l'istruzione: $$\varphi(0) \& \forall z (\varphi(z)\longrightarrow \varphi(s(z))) \vdash \forall z \varphi(z)$$ con $\varphi$ formula.\\
-Ma proprio il fornire questa istruzione al robot diventa difficile al programmatore, in quanto bisogna saper scrivere $\varphi$ nel nostro sistema.\\
-E' importante sapere che noi, di fatto, stiamo "`sperando"' che quanto fornito sia sufficiente al robot affinch\`e "`capisca"' la nostra intuizione di $\mathbb{N}.$\\ 
-
 \vspace{0.5 cm}
-Essendo PA una teoria con uguaglianza, si hanno anche gli assiomi:
+Inoltre essendo HA una teoria con uguaglianza, si hanno anche gli assiomi:
 \begin{enumerate}
 	\item[(U1)] $x=y,x=z\vdash y=z$
 	\item[(U2)] $x=y\vdash s(x)=s(y). $
@@ -161,7 +224,7 @@ $$\Gamma_1,\Gamma_2,\dots,\Gamma_m\vdash\Delta_1,\Delta_2,\dots,\Delta_n$$
 Il simbolo $\vdash$\ indica che le formule a sinistra (gli {\itshape antecedenti}) sono le ipotesi dalla cui asserzione segue la dichiarazione delle formule a destra (i {\itshape conseguenti}).\\
 Occorrono anche altre abbreviazioni come ad esempio:
 $$\frac{\Gamma\vdash\Delta}{\Gamma'\vdash\Delta'}$$
-dove la barra orizzontale ï¿œ dunque un modo veloce per scrivere `"'ci\`o che sta sopra comporta ci\`o che sta sotto"'.\\
+dove la barra orizzontale \`e dunque un modo veloce per scrivere `"'ci\`o che sta sopra comporta ci\`o che sta sotto"'.\\
 Ovvero quello che sta sopra la barra orizzontale deve essere assunto come premessa, mentre quello che sta sotto corrisponde alle deduzioni fatte a partire da tali premesse.\\
 Quindi elenchiamo le regole del calcolo dei sequenti (nella versione intuizionista) che utilizzeremo per costruire le prove:
 \begin{enumerate}
