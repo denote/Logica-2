@@ -1,0 +1,406 @@
+% ANDREA ZANETTI - MATR 622592 - CDL Magistrale in informatica
+
+% BIBLIOGRAFIA
+% Elliot Mendelson, Introduzione alla logica matematica (1972)
+% Wikipedia
+
+% Concetti che volendo sarebbero da esplicitare (ma già discussi)
+% consistenza
+% teorie 1o ordine
+% fbf
+% thm compl godel
+% thm deduzione
+% formula logicamente valida
+% fintamente assiomatizzabile
+% teoria abb forte da expr l'aritmetica
+
+\newcommand{\godel}{G\"{o}del }
+\newcommand{\ents}{\textit{Entscheidungsproblem}}
+
+\chapter{Teorema di Church}
+
+\section{Introduzione}
+
+Nell'agosto del 1900, il matematico tedesco David Hilbert partecipò al già citato congresso internazionale di
+ matematica di Parigi e, nel suo intervento, presentò una lista di ventitrè problemi che apparivano,
+ allo stato della matematica di allora, irrisolti. Il secondo di questi problemi, chiamato \ents \, 
+(letteralmente ``problema della decisione'') chiede se si possa definire un algoritmo che possa
+ prendere in input la descrizione di un linguaggio formale ed un'espressione del linguaggio e produrre in
+output un valore di verità corrispondente al valore di verità dell'espressione data. L'\ents \, si può dunque
+identificare con il problema della decisione nella logica del primo ordine (ovvero il verificare algoritmicamente
+se un'espressione del primo ordine sia valida), mentre è banalmente risolvibile per la logica proposizionale
+(basta costruire la tavola di verità dell'espressione e verificare se si tratti o meno di una tautologia).
+Alonzo Church and Alan Turing pubblicarono (rispettivamente nel 1936 e 1937) articoli che indipendentemente
+dimostrarono l'impossibilità di decidere algoritmicamente se un'espressione data in un certo linguaggio 
+sia vera o falsa, e quindi come una soluzione generale dell'\ents \, sia impossibile. Questo risultato è
+conosciuto oggi come teorema di Church o teorema di Church-Turing (da non confondere con la tesi di Church
+o tesi di Church-Turing\footnote{Ricordiamo che (informalmente) la tesi di Church è un'ipotesi
+ che afferma che se un problema è (intuitivamente) calcolabile, allora esiste una macchina di Turing
+ (o un dispositivo equivalente) in grado di di calcolarlo; questo equivale a dire che
+ che la classe delle funzioni calcolabili coincide con quella delle funzioni 
+calcolabili da una macchina di Turing. }). Qualche ulteriore considerazione riguardo a queste dimostrazioni
+ si può trovare nelle conclusioni del capitolo (\ref{chrcon}).
+
+\section{Indecidibilità ricorsiva}
+Prima di arrivare alla formulazione del teorema vero e proprio, 
+avremo bisogno di chiarire alcuni concetti relativi all'indecidibilità delle teorie.
+
+\begin{defi}
+Definiamo una funzione $D(u)$ primitiva ricorsiva tale che, se $u$ è il numero di \godel
+ di una formula $\varphi(x_1)$ con variabile libera $x_1$, allora $D(u)$
+è il numero di \godel di $\varphi(\bar{u})$. Quindi $D(u)=Sub(\ulcorner \bar{u} \urcorner , \ulcorner x_1 \urcorner , u)$ o, equivalentemente, $D(u)=\ulcorner \varphi(\overline{\ulcorner \varphi(x_1) \urcorner}) \urcorner $
+\end{defi}
+
+\begin{defi}
+Fissata una teoria $K$, per $T_K$ intendiamo l'insieme dei numeri di \godel
+dei teoremi di $K$.
+\end{defi}
+
+\begin{prop}
+\label{tkne}
+Sia $K$ una teoria del primo ordine con identità con gli stessi simboli di $HA$.
+Se $K$ è consistente e la funzione $D$ è rappresentabile in $K$, allora $T_K$ non è
+esprimibile in $K$.
+\end{prop}
+
+% PER LA REGOLA A4
+\begin{proof}
+Supponiamo che $D$ sia rappresentabile in $K$ e che $T_K$ sia esprimibile in $K$.
+Allora esistono formule $\mathcal{D}(x_1,x_2)$ e $\mathcal{T}(x_2)$ tali che:
+\begin{enumerate}
+ \item Se $D(k)=j$, allora $\vdash \!\! _K \; \mathcal{D}(\bar{k},\bar{j})$
+ \item $\vdash \!\! _K \; (\exists!x_2)\mathcal{D}(\bar{k},x_2)$
+ \item Se $k$ è in $T_K$, allora  $\vdash \!\! _K \; \mathcal{T}(\bar{k})$
+ \item Se $k$ non è in $T_K$, allora  $\vdash \!\! _K \; \neg \mathcal{T}(\bar{k})$.
+\end{enumerate}
+Consideriamo ora la formula $\varphi(x_1):\forall x_2(\mathcal{D}(x_1,x_2) \rightarrow \neg \mathcal{T}(x_2))$,
+e sia $p$ il numero di \godel di tale formula. Costruiamo dunque la formula 
+$$\varphi(\bar{p}): \forall x_2(\mathcal{D}(\bar{p},x_2) \rightarrow \neg \mathcal{T}(x_2)).$$
+Sia $q$ il numero di \godel di $\varphi(\bar{p})$. Quindi $D(p)=q$. Perciò per (1)
+si ha che $\vdash \!\! _K \; \mathcal{D}(\bar{p},\bar{q})$. Ora o vale $\vdash \!\! _K \; \varphi(\bar{p})$
+o vale $\nvdash \!\! _K \; \varphi(\bar{p})$.\newline
+Se $\nvdash \!\! _K \; \varphi(\bar{p})$ allora $q$ non è in $T_K$ e così, per (4), $\vdash \!\! _K \; 
+\neg \mathcal{T}(\bar{q})$. \newline
+Se invece $\vdash \!\! _K \; \varphi(\bar{p})$ allora
+ $\varphi(\bar{p}): \forall x_2(\mathcal{D}(\bar{p},x_2) \rightarrow \neg \mathcal{T}(x_2))$. \newline
+Quindi $\vdash \!\! _K \; \mathcal{D}(\bar{p},\bar{q}) \rightarrow \neg \mathcal{T}(\bar{q})$; ma
+$\vdash \!\! _K \; \mathcal{D}(\bar{p},\bar{q})$.
+ Quindi $\vdash \!\! _K \; \neg \mathcal{T}(\bar{q})$. \newline
+Così in in entrambi i casi $\vdash \!\! _K \; \neg \mathcal{T}(\bar{q})$. \newline
+Ora da $\vdash \!\! _K \; \mathcal{D}(\bar{p},\bar{q})$ e da (2) abbiamo che
+$\vdash \!\! _K \; \mathcal{D}(\bar{p},x_2) \rightarrow x_2 = \bar{q}$.
+Ma poichè $\vdash \!\! _K \; \neg \mathcal{T}(\bar{q})$, allora
+$\vdash \!\! _K \; x_2 = \bar{q} \rightarrow \neg \mathcal{T}(x_2)$.
+Quindi $\vdash \!\! _K \; \mathcal{D}(\bar{p},x_2) \rightarrow \neg \mathcal{T}(x_2)$, e
+per generalizzazione $\vdash \!\! _K \; (x_2)(\mathcal{D}(\bar{p},x_2) \rightarrow \neg \mathcal{T}(x_2))$,
+cioè $\vdash \!\! _K \; \varphi(\bar{p})$. Perciò $q$ è in $T_K$ e, per (3),
+ $\vdash \!\! _K \; \mathcal{T}(\bar{q})$. Dal momento che abbiamo anche 
+$\vdash \!\! _K \; \neg \mathcal{T}(\bar{q})$ $K$ è inconsistente.
+\end{proof}
+
+\textbf{Nota:} la dimostrazione precedente viene assunta valida, ma non è costruttiva. In
+particolare possiamo notare che è classica quando procedendo per casi asseriamo che 
+$\vdash \!\! _K \; \neg \mathcal{T}(\bar{q})$ vale sia quando $\nvdash \!\! _K \; \varphi(\bar{p})$
+che quando $\vdash \!\! _K \; \varphi(\bar{p})$, e quindi consideriamo che valga sempre.
+
+
+\begin{corol}
+\label{tkkk}
+Se $K$ è consistente e ogni funzione ricorsiva è rappresentabile in $K$, allora $T_K$ non è
+esprimibile in $K$. Quindi $T_K$ non è ricorsivo.
+\end{corol}
+
+\begin{proof}
+$D$ è ricorsiva primitiva, e perciò rappresentabile in $K$. Per la proposizione \ref{tkne} $T_K$
+non è esprimibile in $K$ e di conseguenza la sua funzione caratteristica $\chi_{T_K}$ non è
+rappresentabile in $K$. Quindi $\chi_{T_K}$ non è ricorsiva, e perciò $T_K$ non è ricorsivo. 
+\end{proof}
+
+\begin{defi}
+Una teoria $K$ si dice \underline{ricorsivamente indecidibile} se e solo se $T_k$ non è ricorsivo; $K$ si dice \underline{essenzialmente ricorsivamente indecidibile} se e solo se $K$ 
+ed ogni estensione consistente di $K$ sono ricorsivamente indecidibili.
+\end{defi}
+
+\begin{defi}
+Una teoria $K$ si dice \underline{essenzialmente incompleta} se e solo se $K$ ed ogni estensione consistente
+di $K$ sono incomplete.
+\end{defi}
+
+
+Se si accetta la tesi di Church, allora l'indecidibilità ricorsiva è equivalente all'indecidibilità
+effettiva; chiarito questo punto da qui in avanti il concetto di indecidibilità 
+ricorsiva sarà espresso semplicemtente
+dalla parola \textit{indecidibile}.
+
+\section{Sistema di Robinson}
+
+\begin{defi}
+Chiamiamo \textbf{\emph{aritmetica di Robinson\footnote{La formulazione dell'aritmetica di Robinson mediante 
+gli assiomi Q1-Q7 sopra riportati è la più comune, 
+sebbene la formulazione originale (Raphael Robinson, 1950) si sviluppi in 13 assiomi dei quali i primi 6
+si rendono necessari solo se non consideriamo una teoria con uguaglianza. In alcune trattazioni 
+viene aggiunto a Q un ulteriore assioma (unicità del resto) per formare un sistema solitamente denotato
+come RR allo scopo di semplificare alcune dimostrazioni.}
+}} (o sistema di Robinson) una teoria del primo ordine denotata $Q$ con uguaglianza,
+che utilizza il linguaggio dell'aritmetica del primo ordine e per la quale valgono i seguenti assiomi:
+\end{defi}
+\begin{itemize}
+ \item [(Q1)] $\forall x \neg (S(x)=0)$
+ \newline (zero non è il successiore di nessun numero)
+ \item [(Q2)] $\forall x \forall y (S(x)=S(y) \rightarrow x=y) $
+ \newline (numeri diversi hanno successori diversi)
+ \item [(Q3)] $\forall x ( \neg(x=0) \rightarrow \exists y(x=S(y))) $
+ \newline (ogni numero diverso da zero è il successore di qualche altro numero)
+ \item [(Q4)] $\forall x(x+0=x)$
+ \item [(Q5)] $\forall x \forall y (x+S(y)=S(x+y))$
+ \newline (definizione ricorsiva dell'addizione)
+ \item [(Q6)] $\forall x(x\times0=0)$
+ \item [(Q7)] $\forall x \forall y (x\times S(y)=(x \times y)+x)$
+ \newline (definizione ricorsiva della moltiplicazione)
+\end{itemize}
+
+Si noti che per com'è costruita $Q$ rappresenta una versione ridotta di $HA$ finitamente assiomatizzabile
+ed in cui è assente
+ il principio di induzione, mentre c'è l'aggiunta dell'assioma (Q3) che afferma che ogni numero naturale diverso
+ da zero è successore di qualche altro numero (cosa che in $HA$ è dimostrabile appunto per induzione).
+Solitamente in letteratura si confronta $Q$ con $PA$ anzichè con $HA$; allo scopo di ciò che andremo a
+dimostrare questo non è rilevante, infatti senza perdere di generalità a noi interessa che valga
+$$ Q \subseteq S $$
+con
+\begin{itemize}
+ \item [(S)] teoria del primo ordine soggetta al primo teorema di incompletezza (ovvero consistente,
+assiomatizzabile ed incompleta);
+ \item [(Q)] sottoteoria finitamente assiomatizzabile di S anch'essa soggetta al primo teorema di incompletezza.
+\end{itemize}
+Mettiamo ora in evidenza alcune proprierà di Q.
+
+\begin{prop}
+\label{ofrq}
+Ogni funzione ricorsiva è rappresentabile in Q.
+\end{prop}
+\begin{proof}
+Si procede in modo analogo a quanto già fatto parlando di rappresentabilità,
+ nella fattispecie dimostrando separatamente la rappresentabilità
+per le funzioni di base, la composizione, la ricorsione e la minimalizzazione. Una
+formalizzazione precisa della dimostrazione è lasciata come (semplicissimo!) esercizio.
+\end{proof}
+
+\begin{prop}
+\label{piii}
+Q è essenzialmente indecidibile.
+\end{prop}
+\begin{proof}
+Segue dalla proposizione \ref{ofrq} e dal corollario \ref{tkkk}.
+\end{proof}
+
+\begin{prop}
+\label{piiii}
+Q è essenzialmente incompleta.
+\end{prop}
+\begin{proof}
+Sapendo che vale la proposizione \ref{ofrq}, la tesi è diretta conseguenza del 
+teorema di Gödel-Rosser. Una dimostrazione rigorosa è lasciata per esercizio.
+\end{proof}
+
+Naturalmente i risultati delle proposizioni \ref{piii} e \ref{piiii} sono già stati ottenuti per la
+teoria $HA$; la ragione per la quale ci siamo preoccupati di ottenerli ancora per $Q$
+è che $Q$ è finitamente assiomatizzabile. \newline
+Il nostro interesse nell'aritmetica di Robinson risiede nel fatto che è la teoria più debole
+ in cui è possibile rappresentare tutte le funzioni ricorsive e di conseguenza è anche la teoria
+ più debole a cui sia applicabile il primo teorema di incompletezza di Gödel. \newline
+
+\begin{defi}
+Siano $K_1$ e $K_2$ due qualsiasi teorie del primo ordine con gli stessi simboli. 
+$K_2$ si dice \underline{estensione finita} di $K_1$ se e solo se esistono un insieme
+ $A$ di formule ed un insieme finito $B$ di formule tali che:
+\begin{itemize}
+ \item [(a)] i teoremi di $K_1$ sono esattamente le formule derivabili da $A$;
+ \item [(b)] i teoremi di $K_2$ sono esattamente le formule derivabili da $A \cup B$.
+\end{itemize}
+\end{defi}
+
+\begin{defi}
+Siano $K_1$ e $K_2$ due qualsiasi teorie del primo ordine con gli stessi simboli.
+ $K_1$ e $K_2$ si dicono \underline{compatibili} se e solo se la teoria $A \cup B$,
+ ovvero la teoria il cui insieme di assiomi è formato dall'unione degli insiemi di assiomi di $K_1$ e $K_2$, 
+è consistente.
+\end{defi}
+
+\begin{prop}
+\label{p111}
+ Siano $K_1$ e $K_2$ teorie del primo ordine con gli stessi simboli di $HA$.
+Se $K_2$ è un'estensione finita di $K_1$ ed inoltre $K_2$ è indecidibile, allora anche $K_1$ è indecidibile.
+\end{prop}
+
+\begin{proof} 
+Sia $A$ un insieme di assiomi per $K_1$, sia inoltre $A \cup \{ \alpha_1,...,\alpha_n \}$ un insieme
+di assiomi per $K_2$. Si può supporre che $ \alpha_1,...,\alpha_n $ siano formule chiuse (ovvero
+in cui non compaiono variabili libere). \newline
+Allora per il teorema di deduzione\footnote{ Il teorema di deduzione (Herbrandt, 1930) afferma che
+se $\Gamma$ è un'insieme di formule, $\mathcal{A},\mathcal{B}$ sono formule e $\Gamma,\mathcal{A} \vdash \mathcal{B}$
+allora $\Gamma \vdash \mathcal{A} \rightarrow \mathcal{B}$ e viceversa. Lo stesso concetto è già stato presentato
+parlando di HA con la regola $\rightarrow$-right.} 
+una formula $\varphi$ è dimostrabile in $K_2$ se e solo se
+$(\alpha_1\wedge...\wedge\alpha_n) \rightarrow \varphi $ è dimostrabile in $K_1$, ovvero:
+$$ \vdash _{K_{2}} \varphi \;\;\; sse \;\; \vdash \!\! _{K_{1}} (\alpha_1\wedge...\wedge\alpha_n) \rightarrow \varphi. $$
+Sia ora $c$ il numero di \godel di $(\alpha_1\wedge...\wedge\alpha_n)$, allora $b$ sarà il numero di \godel di un teorema di $K_2$ se e solo se
+$ \ulcorner ( \urcorner * c * \ulcorner \rightarrow \urcorner * b * \ulcorner ) \urcorner $ rappresenta il numero di \godel 
+di un teorema di $K_1$; cioè $b$ è in ${T_K}_2$ se e solo se
+ $ \ulcorner ( \urcorner * c * \ulcorner \rightarrow \urcorner * b * \ulcorner ) \urcorner $ è in ${T_K}_1$. \newline
+Quindi se ${T_K}_1$ fosse ricorsivo allora per sostituzione anche ${T_K}_2$ sarebbe ricorsivo, il che è in contraddizione con
+l'ipotesi; di conseguenza $K_1$ è indecidibile.
+\end{proof}
+
+\begin{prop}
+\label{p112}
+Sia $K$ una teoria del primo ordine con gli stessi simboli di $HA$. Se K è compatibile con $Q$,
+ allora $K$ è indecidibile. 
+\end{prop}
+
+\begin{proof}
+Essendo per ipotesi $K$ compatibile con $Q$, allora la teoria $K \cup Q$ è un'estensione consistente di $Q$.
+Quindi dato che assumiamo $Q$ indecidibile per la proposizione \ref{piii},
+ allora $K \cup Q$ sarà anch'essa indecidibile.
+Ma dato che $K \cup Q$ è un'estensione finita di $K$ allora per la proposizione \ref{p111}
+anche $K$ è indecidibile.
+
+\end{proof}
+
+\begin{prop}
+\label{p113}
+Sia $P_{HA}$ il calcolo dei predicati con gli stessi simboli di HA. Allora $P_{HA}$ è indecidibile.
+\end{prop}
+
+\begin{proof}
+Si osserva che $P_{HA} \cup Q = Q$. Quindi $P_{HA}$ è compatibile con $Q$; di conseguenza dalla proposizione \ref{p112}
+si deduce che $P_{HA}$ è indecidibile.
+
+\end{proof}
+
+\section{Teorema di Church}
+
+\begin{defi}
+Denotiamo con $PF$ il calcolo predicativo totale del primo ordine, che contiene:
+\begin{itemize}
+ \item [(a)] tutte le lettere predicative $A^n_j$;
+ \item [(b)] tutte le lettere funzionali $f^n_j$;
+ \item [(c)] tutte le costanti individuali $a_j$.
+\end{itemize}
+\end{defi}
+
+\begin{defi}
+ Denotiamo con $PP$ il calcolo predicativo puro del primo ordine che contiene tutte le lettere
+predicative, ma non lettere funzionali o costanti individuali.
+\end{defi}
+
+\begin{lem}
+\label{lmmm}
+Esiste una funzione ricorsiva $h$ tale che, per ogni formula $\varphi$ di $PF$ con numero di \godel
+$u$, esiste una formula $\varphi'$ di $PP$ con numero di \godel $h(u)$ tale che $\varphi$ è dimostrabile
+in $PF$ se e solo se  $\varphi'$ è dimostrabile in $PP$.
+\end{lem}
+
+%facile verificare
+\begin{proof}
+Sia $\varphi$ una formula di $PF$. Si procede associando lettere predicative distinte
+che non occorrono in $\varphi$ alle lettere funzionali ed alle costanti individuali 
+che vi compaiono, più precisamente:
+\begin{itemize}
+ \item [(1)] a lettere funzionali distinte $f^n_j$ in $\varphi$ associamo lettere predicative
+distinte $A^{n+1}_r$ che non occorrono in $\varphi$;
+ \item [(2)] a costanti individuali distinte $a_j$ in $\varphi$ associamo lettere predicative
+distinte $A^1_k$ che non occorrono in $\varphi$.
+\end{itemize}
+\begin{enumerate}
+ \item Sia $z$ la prima variabile non in $\varphi$; otteniamo allora $\varphi^{\ast}$ da $\varphi$ rimpiazzando
+tutte le occorrenze di $a_j$ in $\varphi$ con $z$. Si costruisca ora la formula
+$$\varphi_1: \; (\exists z) A^1_k(z) \rightarrow (\exists z) (A^1_k(z)\wedge \varphi^{\ast}) $$
+dove $A^1_k$ è la lettera predicativa associata ad $a_j$. \newline
+A questo punto è facile verificare che $\varphi$ è logicamente valida se e solo se
+$\varphi_1$ è logicamente valida. Si prosegua con simili sostituzioni fino ad 
+ottenere una formula $\psi$ senza costanti individuali e tale che $\varphi$ è
+logicamente valida se e solo se $\psi$ è logicamente valida.
+\item Prendiamo ora il termine $f^n_l(t_1,...,t_n)$ più a sinistra in $\psi$, dove $t_1,...,t_n$
+non contengono lettere funzionali. Sia $w$ la prima variabile non in $\psi$, otteniamo allora
+ $\psi^{\ast}$ da $\psi$ rimpiazzando $f^n_l(t_1,...,t_n)$ con $w$; ora similmente a 
+quanto fatto al passo precedente costruiamo la formula
+$$\psi_1: \; (\exists w) A^{n+1}_r(w,t_1,...,t_n) \rightarrow (\exists w) (A^{n+1}_r(w,t_1,....t_n)\wedge \psi^{\ast})$$
+dove $A^{n+1}_r$ è la lettera predicativa corrispondente a $f^n_l$. Si può dunque verificare facilmente che
+$\psi$ è logicamente valida se e solo se $\psi_1$ è logicamente valida. Si ripetano ora
+le stesse trasformazioni finchè non si raggiunga una formula $\varphi'$ che non contenga 
+lettere funzionali; a questo punto $\varphi'$ è una formula di $PP$ ed è logicamente valida
+se e solo se $\varphi$ è logicamente valida.
+\end{enumerate}
+Per il teorema di completezza di \godel\footnote{Il teorema di completazza di \godel
+afferma che in ogni calcolo predicativo del primo ordine i teoremi sono esattamente
+le formule logicamente valide.} abbiamo che $\varphi$ è logicamente valida 
+se e solo se $\vdash \!\! _{PF} \; \varphi$, e $\varphi'$  logicamente valida 
+se e solo se $\vdash \!\! _{PP} \; \varphi'$. Possiamo finalmente definire
+$$h(u)=\left\{ \begin{array}{ll}
+  \ulcorner \varphi' \urcorner & se\ u\ \grave{e}\ il\ numero\ di\ G\ddot{o}del\ di\ una\ formula\ di\ PF;\\
+  0 & altrimenti.\end{array}\right.$$
+Si osserva che $h$ è effettivamente computabile, ricorsiva, e tale che per ogni formula
+ $\varphi$ di $PF$ con numero di \godel
+$u$ essa restituisce $h(u)$  numero di \godel di una formula $\varphi'$ di $PP$  tale che $\varphi$ è dimostrabile
+in $PF$ se e solo se  $\varphi'$ è dimostrabile in $PP$.
+\end{proof}
+
+\begin{thm}
+\label{thmch}
+(Church, 1936) $PF$ (1) e $PP$ (2) sono indecidibili.
+\end{thm}
+
+\begin{proof}
+Procediamo analizzando una parte per volta:
+ \begin{itemize}
+  \item [(1)] Per il teorema di completezza di \godel una qualsiasi formula $\varphi$ di $P_{HA}$
+è dimostrabile in $P_{HA}$ se e solo se essa è logicamente valida, e $\varphi$ è dimostrabile in 
+$PF$ se e solo se essa è logicamente valida, ovvero:
+$$ \vdash \!\! _{P_{HA}}  \varphi \;\;\; sse \;\; \vdash \!\! _{PF} \; \varphi. $$
+Questo significa che se la formula $\varphi$ è dimostrabile in $P_{HA}$ essa a maggior ragione
+sarà dimostrabile in $PF$; d'altra parte la dimostrazione di $\varphi$ in $PF$ non avrà
+bisogno di più simboli di quelli utilizzati in $P_{HA}.$ \newline
+Osserviamo ora che l'insieme $Frm_{P_{HA}}$ dei numeri di \godel di formule di $P_{HA}$ è ricorsivo,
+perciò vale
+$$T_{P_{HA}} = T_{PF} \cap  Frm_{P_{HA}}$$
+in cui $T_{P_{HA}}$ è l'insieme dei numeri di \godel dei teoremi di $P_{HA}$ e
+$T_{PF}$ è l'insieme dei numeri di \godel dei teoremi di $PF$. Se $T_{PF}$
+fosse ricorsivo allora anche $T_{P_{HA}}$ sarebbe ricorsivo, in contraddizione a quanto 
+dimostrato dalla proposizione \ref{p113}. \newline 
+Si conclude quindi che $PF$ è indecidibile.
+  \item [(2)] Per il lemma \ref{lmmm} $u$ è in $T_{PF}$ se e solo se $h(u)$ è in $T_{PP}$.
+Dal momento che $h$ è ricorsiva, la ricorsività di $T_{PP}$ implicherebbe la ricorsività 
+di $T_{PF}$, in contraddizione di quanto appena dimostrato in (1). Perciò $T_{PP}$ non è
+ricorsivo, cioè, $PP$ è indecidibile. 
+ \end{itemize}
+\end{proof}
+
+\section{Conclusioni}
+\label{chrcon}
+
+In letteratura esistono diverse varianti della dimosrazione del teorema di Church, delle quali
+menzioniamo qui le più fondamentali come appendice della nostra trattazione. La prima versione
+del teorema,
+sviluppata e pubblicata appunto da Alonzo Church nel 1935-36 fu sviluppata utilizzando il formalismo del 
+$\lambda$-calcolo e si basa fortemente sul precedente lavoro di Stephen Kleene. 
+Nel 1937 Alan Turing dimostrò
+indipendentemente lo stesso risultato utilizzando il processo di riduzione per ridurre l'halting
+problem (o problema della fermata) per una macchina di Turing all'\ents. Il lavoro di entrambi è
+in ogni caso fortemente influenzato dai lavori di \godel relativi al processo di aritmetizzazione
+ed ai teoremi di incompletezza.
+$$$$
+
+Come già accennato, se si accetta la tesi di Church allora dire \textit{``ricorsivamente indecidibile''} 
+(espresso semplicemente da \textit{``indecidibile''} nella nostra trattazione) equivale a dire \textit{``effettivamente indecidibile''}.
+In particolare quindi il teorema di Church (\ref{thmch}) afferma che non esistono procedimenti di
+decisione ne per il calcolo puro dei predicati $PP$ e neppure per il calcolo predicativo totale $PF$.
+Questo implica che non esiste nessun metodo effettivo per determinare quando una data formula
+è logicamente valida. \newline
+Contrariamente a quanto ci si potrebbe aspettare però si può dimostrare che il calcolo predicativo
+monadico puro (costituito da quelle formule del calcolo predicativo puro che contengono esclusivamente
+lettere predicative a un argomento) è effettivamente decidibile. In un certo senso questo è il
+miglior risultato ottenibile, in quanto si può dimostrare anche (Kalmàr, 1936; Church, 1956) che non esiste
+alcun procedimento di decisione per la validità (o dimostrabilità) di formule che contengono solo lettere predicative binarie.
+
+
+
