@@ -742,9 +742,9 @@ e ricorsivit\`a}
 	si pu\`o fare per $R_{PA}$.
 	
 \section{Primo teorema di incompletezza-quarta versione}
-	
+
 	\`E fondamentale la seguente propriet\`a di $HA$:
-	
+
 	\begin{thm}[\textbf{existence property}]
 	Data una qualsiasi formula $\phi(x)$ dotata di un'unica variabile libera $x$,
 	se vale $\vdash_{HA}\exists x\phi(x)$ allora esiste un numero naturale
@@ -765,9 +765,9 @@ e ricorsivit\`a}
 	Esiste una formula $G$ tale che $\vdash_{HA} G \leftrightarrow\neg\Box G$.
 	$G$ \`e detta \textit{enunciato di G\"odel}.
 	\end{prop}
-	
+
 	\begin{thm} Il predicato $\Box$ soddisfa le seguenti condizioni:
-	
+
 	\begin{itemize}
  	\item[\small{HBL.1}:] se $\vdash_{HA}A$ allora $\vdash_{HA}\Box A$;
  	\item[\small{HBL.2}:] $\vdash_{HA} \Box A\rightarrow \Box(\Box A)$;
@@ -779,7 +779,7 @@ e ricorsivit\`a}
 	\end{thm}
 
 	Da HBL.1 segue:
-	
+
 	\begin{prop}
 	\label{hg1}Se $\vdash_{HA} G$ allora $\vdash_{HA}\Box G$.
 	\end{prop}
@@ -828,18 +828,18 @@ e ricorsivit\`a}
 	\end{array}
 	$$
 	\end{prop}
-	
+
 	\textsc{Dimostrazione.}\\
-	
+
 	Punto 1.\\
 	Per HBL.1 seghe che se
-	
+
 	$$\vdash_{HA} \phi \rightarrow \psi$$
 	allora 
-	
+
 	$$\vdash_{HA} \Box(\phi\rightarrow\psi)$$
 	per HBL.3 segue la tesi.
-	
+
 	Punto 2.\\
 	Poich\'e vale 
 	$$\vdash_{HA} \phi \rightarrow (\psi \rightarrow \phi\&\psi)$$
@@ -914,3 +914,21 @@ e ricorsivit\`a}
 	Per proposizione \ref{lem:hbl3bis} $\vdash_{HA}\neg\Box\bot\rightarrow G$,
 	segue che $\vdash_{HA} G$. Ci\`o \`e contro teorema \ref{teo:nonG}.
 	\begin{flushright}$\Box$\end{flushright}
+	
+	Una dimostrazione alternativa abbastanza intuitiva potrebbe essere la seguente:
+	
+	\begin{thm}[Primo teorema di incompletezza per $HA$]
+	\label{teo:inc1}
+	\begin{array}{ll}
+	1. Se $\vdash_{HA}\phi$ allora $\vdash_{PA}\phi$;\\
+	2. esiste G tale che $\nvdash_{PA} G$ e $\nvdash_{PA} \neg G$ $$
+	\end{array}
+	Allora da 1. e 2. segue che:\\
+	3. esiste G tale che $\nvdash_{HA}$ e $\nvdash_{HA} \neg G$.
+	\end{thm}
+	
+	\textsc{dimostrazione}\\
+ 	Assumiamo $\vdash_{HA}G$. Allora per 1. segue che $\vdash_{PA} G$, contro l'ipotesi 2..
+	Assumiamo $\vdash_{HA}\neg G$. Allora per 1. segue che $\vdash_{PA} \neg G$, contro l'ipotesi 2..
+	\begin{flushright}$\Box$\end{flushright}
+	Questa dimostrazione, per\`{o}, risulta non soddisfacente ai nostri scopi, in quanto la caratteristica costruttiva che delinea le nostre dimostrazioni viene a mancare nella seconda ipotesi del teorema. Per questo motivo confermiamo come quarta versione del primo teorema di completezza quella data da Maietti-Sambin.

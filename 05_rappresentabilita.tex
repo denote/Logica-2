@@ -415,10 +415,10 @@ Quindi per ogni $i,j\leq n$ con $i\neq j$, $u_{i}$ e $u_{j}$ sono coprimi ed ino
 
 
 
-Gli ultimi risultati ci permettono di esprimere in $S$ asserzioni riguardanti sequenze finite di numeri naturali e questo giocher\`a un ruolo cruciale nella dimostrazione del teorema seguente.
+Gli ultimi risultati ci permettono di esprimere in $T$ asserzioni riguardanti sequenze finite di numeri naturali e questo giocher\`a un ruolo cruciale nella dimostrazione del teorema seguente. Per semplicare la notazione, scriveremo x' in luogo di s(x) per indicare il successore di x.
 
 \begin{thm}
-Ogni funzione ricorsiva \`e rappresentabile in $S$.
+Ogni funzione ricorsiva \`e rappresentabile in $T$.
 \end{thm}
 
 \textsc{\textbf{Dim:}} Questa dimostrazione si svolge per induzione sulla complessit\`a strutturale delle funzioni, quindi partiremo con il dimostrare che le funzioni base sono rappresentabili e poi mostreremo che l'essere rappresentabile \`e una propriet\`a chiusa rispetto alle regole che ci permettono di costruire nuove funzioni. \\
@@ -662,7 +662,7 @@ Passiamo ora alle regole introdotte per costruire nuove funzioni: \\
         \justifies
         \eta(\overline{\vec{k}},\overline{m},0), \neg \eta(\overline{\vec{k}},\overline{m},0) \vdash u=\overline{m} \]
         \justifies
-        \overline{m}<u, \eta(\overline{\vec{k}},\overline{m},0),  \overline{m}<u \to \eta(\overline{\vec{k}},\overline{m},0) \vdash u=\overline{m} \]
+        \overline{m}<u, \eta(\overline{\vec{k}},\overline{m},0),  \overline{m}<u \to \neg \eta(\overline{\vec{k}},\overline{m},0) \vdash u=\overline{m} \]
         \justifies
         \overline{m}<u, \eta(\overline{\vec{k}},\overline{m},0), \forall y(y<u \to \eta(\overline{\vec{k}},y,0)) \vdash u=\overline{m}
         \Justifies

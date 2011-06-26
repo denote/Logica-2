@@ -1,16 +1,17 @@
-%% Secondo Teorema di Incompletezza - Ivano Ciardelli
+% incompletezza_secondo_per_compilazione
 
-\chapter{Il predicato \ensuremath{\mathrm{Th}}\ e il secondo teorema di incompletezza}
+\chapter{Il predicato \ensuremath{\mathrm{Th}}\ e il Secondo Teorema di Incompletezza}
 
 \noindent Nel capitolo \ref{chapter:aritmetizzazione} si è introdotto il predicato $\ensuremath{\mathrm{Th}}(y)\equiv\exists x\ensuremath{\mathrm{Dim}}(x,y)$, ove $\ensuremath{\mathrm{Dim}}(x,y)$ è la formula che rappresenta la relazione binaria $\ensuremath{\mathrm{DIM}}$ che sussiste tra $n$ e $m$ quando $n$ codifica una dimostrazione della formula codificata da $m$.
 
-In questo capitolo studieremo le proprietà formali di questo predicato, mostrando che una loro analisi porta speditamente a risultati significativi sull'aritmetica HA, quali il teorema di L\"ob e il secondo teorema di incompletezza.
+In questo capitolo studieremo le proprietà formali di questo predicato, mostrando che una loro analisi porta speditamente a risultati significativi sull'aritmetica HA, quali il Teorema di L\"ob e il Secondo Teorema di Incompletezza.
 
-Incidentalmente facciamo osservare che, sebbene la presente trattazione sia basata sul sistema HA, tutte le proprietà di \ensuremath{\mathrm{Th}}\ che utilizzeremo sono in realtà condivise dal corrispondente predicato di dimostrabilità $\ensuremath{\mathrm{Th}}_{PA}$ di PA, e che pertanto gli stessi argomenti presentati nel presente capitolo possono essere usati per dimostrare tanto il teorema di L\"ob che il secondo teorema di incompletezza in PA.
+Si può inoltre osservare che, sebbene la presente trattazione sia basata sul sistema HA, tutte le proprietà di \ensuremath{\mathrm{Th}}\ che utilizzeremo sono in realtà condivise dal corrispondente predicato di dimostrabilità $\ensuremath{\mathrm{Th}}_{PA}$ di PA, e che pertanto gli stessi argomenti presentati in questo capitolo possono essere usati per dimostrare tanto il Teorema di L\"ob che il Secondo Teorema di Incompletezza in PA.\\
+\bigskip
 
 \section{Condizioni di derivabilità di Hilbert-Bernays-L\"ob}
 
-\noindent In questa sezione presenteremo alcune fondamentali proprietà di \ensuremath{\mathrm{Th}}\ che, combinate con il lemma di diagonalizzazione, saranno tutto ciò che serve per dimostrare il teorema di L\"ob. Dal momento che in questa sezione si fa un uso massiccio del predicato $\ensuremath{\mathrm{Th}}$, spesso annidato, è molto utile snellire la notazione introducendo la seguente abbreviazione.\\
+\noindent In questa sezione presenteremo alcune fondamentali proprietà di \ensuremath{\mathrm{Th}}\ che, combinate con il Lemma di diagonalizzazione, saranno tutto ciò che serve per dimostrare il Teorema di L\"ob. Dal momento che in questa sezione si fa un uso massiccio del predicato $\ensuremath{\mathrm{Th}}$, spesso annidato, è molto utile snellire la notazione introducendo la seguente abbreviazione.\\
 
 \noindent \textbf{Notazione} Se $\varphi$ è una formula aritmetica, poniamo $\Box\varphi\equiv\ensuremath{\mathrm{Th}}(\overline{\ulcorner\varphi\urcorner})$.
 
@@ -18,72 +19,253 @@ Incidentalmente facciamo osservare che, sebbene la presente trattazione sia basa
 \begin{description}
 \item[HBL1] se $\vdash_{HA}\varphi$ allora $\vdash_{HA}\Box\varphi$;
 \item[HBL2] $\vdash_{HA}\Box(\varphi\to\psi)\to(\Box\varphi\to\Box\psi)$;
-\item[Cor]  se $\vdash_{HA}\varphi\to\psi$ allora $\vdash_{HA}\Box\varphi\to\Box\psi$;
+\item[Cor] se $\vdash_{HA}\varphi\to\psi$ allora $\vdash_{HA}\Box\varphi\to\Box\psi$;
 \item[HBL3] $\vdash_{HA}\Box\varphi\to\Box\Box\varphi$.
 \end{description}
 \end{thm}
 
 \begin{proof} Siano date $\varphi$ e $\psi$ qualunque.
 \begin{description}
-\item[HBL1] Se $\vdash_{HA}\varphi$ allora esiste una dimostrazione $D$ di $\varphi$ in PA. Ma allora per definizione, la relazione $\ensuremath{\mathrm{DIM}}(\ulcorner D\urcorner,\ulcorner\varphi\urcorner)$ sussiste. Ora, poiché $\ensuremath{\mathrm{DIM}}$ è rappresentata dal predicato aritmetico $\ensuremath{\mathrm{Dim}}$, $\vdash_{HA}\ensuremath{\mathrm{Dim}}(\ulcorner D\urcorner,\ulcorner\varphi\urcorner)$. Ma allora $\vdash_{HA}\exists x\ensuremath{\mathrm{Dim}}(x,\ulcorner\varphi\urcorner)$, cioè $\vdash_{HA}\Box\varphi$.
-\item[HBL2] E' chiaro che in ogni sistema di derivazione, una dimostrazione di $\psi$ può essere ottenuta da una dimostrazione $D$ di $\varphi\to\psi$ e da una dimostrazione $D'$ di $\varphi$ in maniera uniforme. In particolare, nel calcolo dei sequenti,
 
-%\begin{comment}
-$$\begin{prooftree}
-    \[ D'\vdash_{HA}oofdotseparation=1.2ex \vdash_{HA}oofdotnumber=3\leadsto \vdash\phi\]
-    \[\[ D\vdash_{HA}oofdotseparation=1.2ex \vdash_{HA}oofdotnumber=3\leadsto \vdash\phi\rightarrow\psi\] \[ \phi\vdash\phi \quad  \psi\vdash\psi \justifies \phi\rightarrow\psi, \phi\vdash \psi\using{\to_{left}}\] \justifies \phi\vdash\psi\using{cut}\]
-    \justifies
-    \vdash \psi
-    \using{cut}.
-\end{prooftree}$$
-%\end{comment}
+\item[HBL1] Se $\vdash_{HA}\varphi$ allora esiste una dimostrazione $D$ di $\varphi$ in HA.\\
+Ma allora, per definizione, la relazione $\ensuremath{\mathrm{DIM}}(\ulcorner D\urcorner,\ulcorner\varphi\urcorner)$ sussiste.\\
+Poiché $\ensuremath{\mathrm{DIM}}$ è rappresentata dal predicato aritmetico $\ensuremath{\mathrm{Dim}}$, allora vale $\vdash_{HA}\ensuremath{\mathrm{Dim}}(\ulcorner D\urcorner,\ulcorner\varphi\urcorner)$. Dunque $\vdash_{HA}\exists x\ensuremath{\mathrm{Dim}}(x,\ulcorner\varphi\urcorner)$, cioè $\vdash_{HA}\Box\varphi$.\\
+
+\item[HBL2] \`{E} chiaro che in ogni sistema di derivazione, una dimostrazione di $\psi$ può essere ottenuta da una dimostrazione $D$ di $\varphi\to\psi$ e da una dimostrazione $D'$ di $\varphi$ in maniera uniforme. In particolare, nel calcolo dei sequenti:
 
 
-    Se usassimo un sistema in cui le deduzioni fossero mere sequenze di formule, per esempio il calcolo alla Hilbert o la deduzione naturale, la cosa sarebbe ancora più semplice: una dimostrazione di $\psi$ sarebbe data dalla sequenza ottenuta concatenando $D$, $D'$ e aggiungendo la formula $\psi$.
+$$\prooftree
+  \stackrel{\stackrel{D'}{\vdots}}{\vdash} \varphi \qquad  \[\stackrel{\stackrel{D}{\vdots}}{\vdash} \varphi\rightarrow \psi \qquad \[\varphi \vdash \varphi \qquad \psi \vdash \psi \justifies \varphi\rightarrow \psi, \varphi \vdash \psi\using{\rightarrow_{left}}\] \justifies \varphi\vdash\psi\using {cut}\]
+   \justifies
+ \vdash \psi
+ \using {cut}\
+\endprooftree$$
 
-    Questo si riflette nel fatto che, indipendentemente dal particolare sistema utilizzato, esiste una funzione (primitiva) ricorsiva $r$ tale che, dati $m$ ed $n$, se $m$ codifica una dimostrazione di $\varphi\to\psi$ e $n$ codifica una dimostrazione di $\varphi$, allora $r(m,n)$ codifica una dimostrazione di $\psi$.
 
-    Questa funzione sarà rappresentata in HA da una formula $\rho(x,y)$. Non solo, ma il fatto appena menzionato sarà una semplice proprietà aritmetica dimostrabile in HA, cioè si avrà
-    $$\vdash_{HA}\forall x\forall y(\ensuremath{\mathrm{Dim}}(x,\ulcorner\varphi\to\psi\urcorner)\land\ensuremath{\mathrm{Dim}}(y,\ulcorner\phi\urcorner)\to \ensuremath{\mathrm{Dim}}(\rho(x,y),\ulcorner\psi\urcorner))$$
-    Da cui per pura manipolazione logica segue
-    $$\vdash_{HA}\exists x\ensuremath{\mathrm{Dim}}(x,\ulcorner\varphi\to\psi\urcorner)\to(\exists x\ensuremath{\mathrm{Dim}}(x,\ulcorner\phi\urcorner)\to \exists x\ensuremath{\mathrm{Dim}}(x,\ulcorner\psi\urcorner))$$
-    cioè $\vdash_{HA}\Box(\varphi\to\psi)\to(\Box\varphi\to\Box\psi)$.
-\item[Cor] Supponiamo $\vdash_{HA}\varphi\to\psi$. Allora per (HBL1) $\vdash_{HA}\Box(\varphi\to\psi)$. Ma d'altra parte $\vdash_{HA}\Box(\varphi\to\psi)\to(\Box\varphi\to\Box\psi)$ per (HBL2), e pertanto $\vdash_{HA}\Box\varphi\to\Box\psi$.
-\item[HBL3] Diamo qui solamente le linee guida della dimostrazione, per i cui dettagli, lunghi e tediosi, si rimanda a \cite{Boolos}. Si dimostra che $\vdash_{HA}\psi\to\Box\psi$ per ogni formula $\Sigma_1$, procedendo per induzione sulla struttura di $\psi$ \footnote{Una formula $\Sigma_1$ è una formula che non contiene quantificazioni universali non limitate; in altre parole, se le uniche quantificazioni universali che vi occorrono sono della forma $\forall x(x\le\overline k\to\phi)$ per qualche $k$.}.
+Se usassimo un sistema in cui le deduzioni fossero mere sequenze di formule, per esempio il calcolo alla Hilbert, la cosa sarebbe ancora più semplice: una dimostrazione di $\psi$ sarebbe data dalla sequenza ottenuta concatenando $D$, $D'$ e aggiungendo la formula $\psi$.
 
-    Si applica poi questo risultato a $\psi=\Box\varphi=\exists x\ensuremath{\mathrm{Dim}}(x,\ulcorner\varphi\urcorner)$, che è una formula $\Sigma_1$ poiché $\ensuremath{\mathrm{Dim}}(x,\ulcorner\varphi\urcorner)$ è una formula $\Delta_0$, cioè non contenente alcuna quantificazione illimitata.
+Questo si riflette nel fatto che, indipendentemente dal particolare si\-ste\-ma utilizzato, esiste una funzione (primitiva) ricorsiva $r$ tale che, dati $m$ ed $n$, se $m$ codifica una dimostrazione di $\varphi\to\psi$ e $n$ codifica una dimostrazione di $\varphi$, allora $r(m,n)$ codifica una dimostrazione di $\psi$.
 
-    Presentiamo a titolo esemplificativo il passo induttivo per il quantificatore esistenziale. Si supponga infatti $\vdash_{HA}\varphi\to\Box\varphi$: vogliamo dimostrare che $\vdash_{HA}\exists x\varphi\to\Box\exists x\varphi$.\\
+Questa funzione sarà rappresentata in HA da una formula $\rho(x,y)$. Non solo, ma il fatto appena menzionato sarà una semplice proprietà aritmetica dimostrabile in HA, cioè si avrà:
+    $$\vdash_{HA}\forall x\forall y(\ensuremath{\mathrm{Dim}}(x,\ulcorner\varphi\to\psi\urcorner)\land\ensuremath{\mathrm{Dim}}(y,\ulcorner\varphi\urcorner)\to \ensuremath{\mathrm{Dim}}(\rho(x,y),\ulcorner\psi\urcorner))$$
+    da cui segue:
+    $$\vdash_{HA}\exists x\ensuremath{\mathrm{Dim}}(x,\ulcorner\varphi\to\psi\urcorner)\to(\exists x\ensuremath{\mathrm{Dim}}(x,\ulcorner\varphi\urcorner)\to \exists x\ensuremath{\mathrm{Dim}}(x,\ulcorner\psi\urcorner))$$
+   cioè $\vdash_{HA}\Box(\varphi\to\psi)\to(\Box\varphi\to\Box\psi)$.\\
+    
 
-    \begin{tabular}{l l l}
-    1   &   $\vdash_{HA}\varphi\to\Box\varphi$                    & ipotesi induttiva     \\
-    2   &   $\vdash_{HA}\varphi\to\exists x\varphi$                 & logicamente valida    \\
-    3   &   $\vdash_{HA}\Box\varphi\to\Box\exists x\varphi$       & da 2 per (Cor)        \\
-    4   &   $\vdash_{HA}\varphi\to\Box\exists x\varphi$           & da 1 e 3              \\
-    5   &   $\vdash_{HA}\exists x\phi\to\Box\exists x\varphi$      & poiché $x$ non è libera in $\Box\exists x\varphi$\\
-    \end{tabular}
+
+%$$\prooftree
+%\vdash \forall x \forall y (A(x)\ \mbox{\&}\ B(y)\rightarrow C(t)) \qquad \[\[A(x)\ \mbox{\&}\ B(y)\rightarrow C(t)\vdash A(x)\ \mbox{\&}\ B(y)\rightarrow C(t)
+%\justifies
+%\forall y\ (A(x)\ \mbox{\&}\ B(y)\rightarrow C(t))\vdash A(x)\ \mbox{\&}\ B(y)\rightarrow C(t)
+%\using {\forall_{left}}\]
+%\justifies
+%\forall x \forall y\ (A(x)\ \mbox{\&}\ B(y)\rightarrow C(t))\vdash A(x)\ \mbox{\&}\ B(y)\rightarrow C(t)
+%\using {\forall_{left}}\]
+%\justifies
+%\vdash A(x)\ \mbox{\&} B(x)\rightarrow C(t)
+%\using{cut}\
+%\endprooftree$$
+
+
+
+
+%$$\prooftree
+% \qquad  \[
+%A(x)\vdash A(x)
+%\using {ind}
+%\justifies
+%A(x), B(y) \vdash A(x)
+%\qquad \[A(x), B(y) \vdash B(y) \justifies A(x), B(y) \vdash A(x)\ \mbox{\&}\ B(y) \using{\mbox{\&}_{right}}\]
+%\qquad C(t) \vdash C(t)\justifies
+%A(x)\ \mbox{\&} B(x)\rightarrow C(t), A(x), B(y) \vdash C(t)
+%\using{\rightarrow_{left}}\
+%\endprooftree$$
+ 
+   
+   
+%$$\prooftree
+%\[\[\[\[\[
+%A(x), B(y)\vdash C(t)
+%\using {cut}\
+%\justifies
+%A(x), B(y)\vdash \exists x C(x)
+% \using {{\exists}_{r}}\]
+% \justifies
+%A(x), \exists x B(x)\vdash \exists x C(x)
+%\using {{\exists}_{F}}\]
+%\justifies
+%\exists x A(x), \exists x B(x)\vdash \exists x C(x)
+%\using {{\exists}_{F}}\]
+%\justifies
+%\exists x A(x)\ \mbox{\&}\ \exists x B(x)\vdash \exists x C(x)
+%\using {\mbox{\&}_{left}}\]
+%\justifies
+%\exists x A(x)\vdash \exists x B(x)\rightarrow \exists x C(x)
+%\using {\rightarrow_{right}}\]
+% \justifies
+% \vdash \exists x A(x)\rightarrow \left(\exists x B(x)\rightarrow \exists x C(x)\right)
+%\using {\rightarrow_{right}}\
+%\endprooftree$$
+
+    
+\item[Cor] Supponiamo $\vdash_{HA}\varphi\to\psi$. Allora per (HBL1) $\vdash_{HA}\Box(\varphi\to\psi)$.\\
+Ma d'altra parte $\vdash_{HA}\Box(\varphi\to\psi)\to(\Box\varphi\to\Box\psi)$ per (HBL2), pertanto $\vdash_{HA}\Box\varphi\to\Box\psi$.\\
+
+\item[HBL3] Introduciamo anzitutto la seguente:
+
+\begin{defi}
+Una $\Sigma$ (o $\Sigma_1$) formula è una formula che non contiene quantificazioni universali non limitate; in altre parole, se le uniche quantificazioni universali che vi occorrono sono della forma
+\begin{center}
+$\forall x(x\le\overline k\to\varphi)$, per qualche $k$.\\
+\end{center}
+\end{defi}
+
+\noindent Si dimostra il seguente teorema (e lo faremo successivamente, procedendo per induzione sulla struttura di $\psi$):
+\begin{center}
+$\vdash_{HA}\psi\to\Box\psi$, per ogni $\Sigma$ formula.
+\end{center}
+ 
+\noindent Applicando questo risultato a $\psi=\Box\varphi=\exists x\ensuremath{\mathrm{Dim}}(x,\ulcorner\varphi\urcorner)$, che è una $\Sigma$ formula, si ottiene la tesi:
+\begin{center}
+$\vdash_{HA} \Box\varphi \rightarrow \Box\Box\varphi$.
+\end{center}
+
+\noindent Osserviamo che $\psi$ sopra definita è una $\Sigma$ formula, poiché $\ensuremath{\mathrm{Dim}}(x,\ulcorner\varphi\urcorner)$ è una $\Delta_0$ formula, cioè non contenente alcuna quantificazione illimitata (più esplicitamente, una $\Sigma$ formula può contenere un $\exists$ illimitato, mentre le quantificazioni in $\Delta_0$ sono limitate).\\
+Ma perché $\ensuremath{\mathrm{Dim}}(x,\ulcorner\varphi\urcorner)$ è una $\Delta_0$ formula?\\
+Ricordiamo che il predicato $\ensuremath{\mathrm{DIM}}(m,n)$ è un predicato primitivo ricorsivo: in esso tutte le quantificazioni sono limitate (cioè vi è un bound preciso entro cui sceglierle) ma ciò non vale per la minimalizzazione, per la quale c'è una richiesta illimitata. Pertanto la formula che rappresenta $\ensuremath{\mathrm{DIM}}(m,n)$, cioè $\ensuremath{\mathrm{Dim}}(x,\ulcorner\varphi\urcorner)$, è una $\Delta_0$ formula.
+
+Introduciamo ora definizioni, lemmi e proposizioni che ci per\-met\-te\-ran\-no di dimostrare il teorema sopra:
+
+\begin{defi}
+Un termine è chiuso se nessuna variabile compare in esso; una formula è chiusa (e si dice enunciato) se nessuna variabile è libera in essa.\\
+Ogni termine chiuso $t$ denota un unico numero naturale; indichiamo con $\overline i$ il numerale per il numero $i$ (e diciamo che $\overline i$ denota $i$).\\
+\end{defi}
+
+\begin{lem}
+Se $t$ è un termine chiuso e $t$ denota $i$, allora $\vdash t=\overline i$.
+\end{lem}
+
+\textsc{\textbf{Dim:}} Per induzione sulla costruzione di $t$:
+\begin{itemize}
+	\item se $t$ è $\overline 0$, allora $t$ denota $0$, e dunque $\vdash \overline 0=\overline 0$;
+	\item se $t$ denota $i$ e $t'$ denota $j$, allora $t+t'$ denota $i+j$. Sia $k=i+j$.\\
+	Per l'ipotesi induttiva, $\vdash t=\overline i$ e $t'=\overline j$.\\
+	Per la proprietà che se $i+j=k$ allora $\vdash \overline{i+j}=\overline k$, si ha: $\vdash \overline{i+j}=\overline k$. Allora $\vdash t+t'=\overline{i+j}=\overline k$.\\
+	Analogamente per successore e moltiplicazione.\\
+\end{itemize}
+
+\begin{prop}
+Se $t$ e $t'$ sono chiusi e $t=t'$ è vera, allora $\vdash t=t'$.
+\end{prop}
+
+\textsc{\textbf{Dim:}} $t$ denoti $i$ e $t'$ denoti $i'$.\\
+Per il Lemma 11.1, $\vdash t=\overline i$ e $\vdash t'=\overline {i'}$. Se $t=t'$ è vera, allora $i=i'$, e $\overline i$ è lo stesso numerale di $\overline{i'}$. Allora $\vdash t=t'$.\\
+
+\begin{lem}
+$\vdash x<sy\leftrightarrow x<y \vee x=y$.
+\end{lem}
+
+\textsc{\textbf{Dim:}} Per definizione $x<y$ è la formula $\exists z\  x+sz=y$. Si ha:\\
+$\vdash x<sy\leftrightarrow \exists z\ x+sz=sy$,\\
+$\vdash x<sy\leftrightarrow \exists z\ s(x+z)=sy$,\\
+$\vdash x<sy\leftrightarrow \exists z\ x+z=y$,\\
+$\vdash x<sy\leftrightarrow x+\overline{0}=y \vee \exists w\ x+sw=y$,\\
+$\vdash x<sy\leftrightarrow x=y \vee x<y$.\\
+
+\begin{defi}
+$\bigvee \left\{x=\overline j: j<i\right\}$ è la disgiunzione di tutte le proposizioni $x=\overline j$ per $j<i$ ed è $\bot$ se $i=0$.\\
+\end{defi}
+
+\begin{prop}
+$\vdash x<\overline {i} \leftrightarrow \bigvee \left\{x=\overline j: j<i\right\}$.
+\end{prop}
+
+\textsc{\textbf{Dim:}} Per induzione su $i$:
+\begin{itemize}
+\item se $i=0$, $\vdash \neg x<\overline 0$, da cui $\vdash x<\overline 0 \leftrightarrow \bot$;
+\item supponiamo che $\vdash x<\overline i\leftrightarrow \bigvee \left\{x=\overline j: j<i\right\}$.\\
+Allora per il Lemma 11.2 e l'ipotesi induttiva:
+$\vdash x<s\overline i\leftrightarrow \left(x<\overline i \vee x=\overline i\right)$,\\
+$\vdash x<s\overline i\leftrightarrow \left(\bigvee \left\{x=\overline j: j<i\right\}\vee x=\overline i\right)$,\\
+$\vdash x<s\overline i\leftrightarrow \bigvee \left\{x=\overline j: j<i+1\right\}$.\\
+\end{itemize}
+
+\textsc{\textbf{Notazione:}} Scriviamo $\forall y<x\ F$ per abbreviare $\forall y \left(y<x\rightarrow F\right)$;\\
+scriviamo $\exists y<x\ F$ per abbreviare $\exists y \left(y<x\wedge F\right)$.\\
+
+\begin{defi}
+Diciamo che una formula è una $\Sigma$ formula stretta se fa parte della più piccola classe che contiene tutte le formule
+\begin{center}
+$u=v$, $\overline 0=u$, $su=v$, $u+v=w$, $u\times v=w$,
+\end{center}
+e, se $F$ e $G$ sono sono $\Sigma$ formule strette, allora anche $F\wedge G$, $F\vee G$, $\exists x\ F$ e $\forall x<y\ F$ ("`per ogni"' limitato!) sono $\Sigma$ formule strette.\\
+\end{defi}
+
+\begin{oss}
+\begin{itemize}
+	\item tutte le formule atomiche sono $\Sigma$ formule;
+	\item ogni $\Sigma$ formula è equivalente (dimostrabilmente equivalente in HA, cioè è dimostrabile in HA la doppia implicazione) ad una formula costruita per congiunzione e quantificazione esistenziale dalle cinque formule sopra riportate, cioè ogni $\Sigma$ formula è equivalente per de\-fi\-ni\-zio\-ne ad una $\Sigma$ formula stretta.\\
+Per esempio, $x+sy=s\overline 0$ è equivalente a\\
+$\exists u\ \exists v\ \exists w\ \left(sy=u \wedge x+u=v \wedge \overline 0=w \wedge sw=v\right)$.\\
+\end{itemize}
+\end{oss}
+
+\begin{defi}
+Un $\Sigma$ enunciato è una $\Sigma$ formula che è un enunciato.\\
+Se $F$ è una $\Sigma$ formula e $S$ è un enunciato ottenuto da $F$ con la sostituzione di termini chiusi, come i numerali, a variabili libere in $F$, allora $S$ è un $\Sigma$ enunciato.
+\end{defi}
+
+\begin{oss}
+Il seguente teorema fornisce una proprietà importante dei $\Sigma$ enunciati.
+\end{oss}
+
+\begin{thm}
+Se $S$ è un $\Sigma$ enunciato vero, allora $\vdash S$. 
+\end{thm}
+
+\textsc{\textbf{Dim:}} Per induzione su $i$:
+\begin{itemize}
+\item se $S$ è una formula atomica vera, allora $\vdash S$ (per la Prop. 11.1);
+\item se $\left(S\wedge S'\right)$ è vera, allora $S$ e $S'$ sono vere, da cui $\vdash S$ e $\vdash S'$, e dunque $\vdash \left(S\wedge S'\right)$;
+\item se $\left(S\vee S'\right)$ è vera, allora $S$ o $S'$ sono vere, da cui $\vdash S$ o $\vdash S'$, e dunque $\vdash \left(S\vee S'\right)$;
+\item se $\exists x\ F$ è vera, allora per qualche $i$, $F\left(\overline i\right)$ è vera (cioè il risultato della sostituzione di $\overline i$ a $x$ in $F$ è vera); allora $\vdash F\left(\overline i\right)$, e dunque $\vdash \exists x\ F$;
+\item se $\forall x<\overline {i}\ F$ è vera, allora per ogni $j<i$, $F\left(\overline j\right)$ è vera, e allora per ogni $j<i$, $\vdash F\left(\overline j\right)$ e $\vdash x=\overline j \rightarrow F$.\\
+Ma $\vdash x<\overline i\leftrightarrow \bigvee \left\{x=\overline j: j<i\right\}$ (per la Prop. 11.2).\\
+E dunque si ha: $\vdash x<\overline i\rightarrow F$ e $\vdash \forall x<\overline {i}\ F$;
+\item infine, se $S$ è equivalente ad un enunciato dimostrabile, allora $S$ è dimostrabile. Cioè: quando il teorema è dimostrato per le $\Sigma$ formule strette (come abbiamo fatto), allora, poiché ogni $\Sigma$ formula è equivalente ad una $\Sigma$ formula stretta e se una formula è dimostrabile allora lo è anche l'altra, allora il teorema è dimostrato anche per le $\Sigma$ formule.
+\end{itemize}
 \end{description}
 \end{proof}
 
-\section{Il teorema di L\"ob ed il Secondo Teorema di Incompletezza}
+\begin{oss}
+Questo teorema non è affatto banale. Infatti, l'enunciato del teorema sarebbe falso se non ci restringessimo ai $\Sigma$ enunciati (e dunque alle $\Sigma$ formule). In generale, NON è vero: se $S$ è vero, allora $\vdash S$.\\
+Questo, infatti, non è altro che l'enunciato del Primo Teorema di Incompletezza: esiste una formula $G$ tale che né $G$ né $\neg G$ è dimostrabile. Ma d'altra parte sappiamo che $G$ è vera perché afferma la propria indimostrabilità, dunque in definitiva $G$ è una formula vera ma non dimostrabile. Dunque $G$ NON è equivalente ad una $\Sigma$ formula perché in essa compare $\neg \exists$ che è intuizionisticamente equivalente a $\forall \neg$, che è un quantificatore esistenziale illimitato!
+\end{oss}
+
+
+\section{Il Teorema di L\"ob ed il Secondo Teorema di Incompletezza}
 
 \noindent Consideriamo la formula $\Box\varphi\to\varphi$: questa esprime il fatto che HA sia corretta riguardo $\varphi$, cioè che se HA dimostra $\varphi$ allora $\varphi$ è vera. Ora, quali sono le formule $\varphi$ per cui HA dimostra di essere corretta?
 
-Intuitivamente, poiché le condizioni di dimostrabilità di ogni formula implicano le sue condizioni di verità, si potrebbe pensare che $\Box\varphi\to\varphi$ dovrebbe essere dimostrabile per ogni $\phi$.
+Intuitivamente, poiché le condizioni di dimostrabilità di ogni formula implicano le sue condizioni di verità, si potrebbe pensare che $\Box\varphi\to\varphi$ dovrebbe essere dimostrabile per ogni $\varphi$.
 
-Al contrario, per dirla con le parole di Rohit Parikh, ``HA non potrebbe essere più modesta riguardo la propria veridicità'': infatti, HA dimostra di essere corretta per $\varphi$ solo quando in effetti essa dimostra già $\varphi$ stessa. Questo è il contenuto del teorema di L\"ob.
+Al contrario, per dirla con le parole di Rohit Parikh, ``HA non potrebbe essere più modesta riguardo la propria veridicità'': infatti, HA dimostra di essere corretta per $\varphi$ solo quando in effetti essa dimostra già $\varphi$ stessa. Questo è il contenuto del Teorema di L\"ob.
 
 \begin{thm}[Teorema di L\"ob]
-Per ogni formula aritmetica $\varphi$, se $\vdash_{HA}\Box\varphi\to\varphi$ allora $\vdash_{HA}\varphi$.
+Per ogni formula aritmetica $\varphi$,
+\begin{center}
+se $\vdash_{HA}\Box\varphi\to\varphi$ allora $\vdash_{HA}\varphi$.
+\end{center}
 \end{thm}
 
-\noindent Un altro modo di porre la questione è il seguente: la dimostrazione del primo teorema di incompletezza mostra che ogni punto fisso della formula $\neg\ensuremath{\mathrm{Th}}(x)$ non è dimostrabile in HA. Cosa si può dire invece dei punti fissi della formula $\ensuremath{\mathrm{Th}}(x)$?
+\noindent Un altro modo di porre la questione è il seguente: la dimostrazione del Primo Teorema di Incompletezza mostra che ogni punto fisso della formula $\neg\ensuremath{\mathrm{Th}}(x)$ non è dimostrabile in HA. Cosa si può dire invece dei punti fissi della formula $\ensuremath{\mathrm{Th}}(x)$?
 
-Certamente, ogni teorema è un punto fisso di $\ensuremath{\mathrm{Th}}(x)$. Infatti se $\vdash_{HA}\varphi$, allora per (HBL1) anche $\vdash_{HA}\Box\varphi$ e perciò banalmente $\vdash_{HA}\varphi\leftrightarrow\Box\varphi$. Ma esistono formule che sono punti fissi di $\ensuremath{\mathrm{Th}}(x)$ in modo non banale, cioè senza essere teoremi? Il teorema di L\"ob dà risposta negativa a questo interrogativo: tutti i punti fissi di $\ensuremath{\mathrm{Th}}(x)$ sono teoremi.
+Certamente, ogni teorema è un punto fisso di $\ensuremath{\mathrm{Th}}(x)$. Infatti se $\vdash_{HA}\varphi$, allora per (HBL1) anche $\vdash_{HA}\Box\varphi$ e perciò banalmente $\vdash_{HA}\varphi\leftrightarrow\Box\varphi$. Ma esistono formule che sono punti fissi di $\ensuremath{\mathrm{Th}}(x)$ in modo non banale, cioè senza essere teoremi? Il Teorema di L\"ob dà risposta negativa a questo interrogativo: tutti i punti fissi di $\ensuremath{\mathrm{Th}}(x)$ sono teoremi.
 
-Come preannunciato, la dimostrazione del teorema di L\"ob fa uso solamente delle tre condizioni di derivabilità e del lemma di diagonalizzazione.
+Come preannunciato, la dimostrazione del Teorema di L\"ob fa uso solamente delle tre condizioni di derivabilità e del lemma di diagonalizzazione.
 
-\begin{proof} Si assuma $\vdash_{HA}\Box\varphi\to\varphi$. Applicando il lemma di diagonalizzazione (vedi capitolo \ref{lemma diagonalizzazione}) alla formula $\chi_{\varphi}(x)\equiv\ensuremath{\mathrm{Th}}(x)\to\varphi$, si ottiene l'esistenza di una formula $\delta$ tale che $\vdash_{HA}\delta\leftrightarrow(\ensuremath{\mathrm{Th}}(\overline{\ulcorner\delta\urcorner})\to\varphi)$, cioè tale che $\vdash_{HA}\delta\leftrightarrow(\Box\delta\to\varphi)$. Si hanno allora i seguenti fatti, dove i passaggi che non sono esplicitamente giustificati sono pura logica proposizionale (intuizionistica).\\
+\begin{proof} Si assuma $\vdash_{HA}\Box\varphi\to\varphi$. Applicando il lemma di dia\-go\-na\-liz\-za\-zio\-ne alla formula $\chi_{\varphi}(x)\equiv\ensuremath{\mathrm{Th}}(x)\to\varphi$, si ottiene l'esistenza di una formula $\delta$ tale che $\vdash_{HA}\delta\leftrightarrow(\ensuremath{\mathrm{Th}}(\overline{\ulcorner\delta\urcorner})\to\varphi)$, cioè tale che $\vdash_{HA}\delta\leftrightarrow(\Box\delta\to\varphi)$. Si hanno allora i seguenti fatti, dove i passaggi che non sono esplicitamente giustificati sono pura logica proposizionale (intuizionistica).\\
 
 \begin{tabular}{l l l}
 1 & $\vdash_{HA}\delta\leftrightarrow(\Box\delta\to\varphi)$ 														& 									 \\
@@ -103,13 +285,13 @@ Come preannunciato, la dimostrazione del teorema di L\"ob fa uso solamente delle
 \noindent Questa catena di deduzioni mostra che $\vdash_{HA}\varphi$, come affermato dall'enunciato del teorema.
 \end{proof}
 
-Il teorema di L\"ob è un risultato sorprendente e di grande potenza. Si vedrà nella prossima sezione come da esso segua speditamente il Secondo Teorema di incompletezza come corollario. Ora vediamo invece che il teorema di L\"ob può essere internalizzato, cioè che il corrispettivo formale del teorema di L\"ob è dimostrabile in HA.
+Il Teorema di L\"ob è un risultato sorprendente e di grande potenza. Si vedrà nella prossima sezione come da esso segua speditamente il Secondo Teorema di incompletezza come corollario. Ora vediamo invece che il Teorema di L\"ob può essere internalizzato, cioè che il corrispettivo formale del Teorema di L\"ob è dimostrabile in HA.
 
 \begin{thm}[Teorema di L\"ob internalizzato] \label{internalized lob} Per ogni formula aritmetica $\varphi$,
 $$\vdash_{HA}\Box(\Box\varphi\to\varphi)\to\Box\varphi$$
 \end{thm}
 
-\begin{proof} Si prenda $\delta$ come nella dimostrazione del teorema di L\"ob, cioè tale che $\vdash_{HA}\delta\leftrightarrow(\Box\delta\to\varphi)$. In tale dimostrazione, facendo uso esclusivamente di tale proprietà di $\delta$ si era trovato (vedi sopra) $\vdash_{HA}\Box\delta\to\Box\varphi$. Utilizzando questo fatto abbiamo:
+\begin{proof} Si prenda $\delta$ come nella dimostrazione del Teorema di L\"ob, cioè tale che $\vdash_{HA}\delta\leftrightarrow(\Box\delta\to\varphi)$. In tale dimostrazione, facendo uso esclusivamente di tale proprietà di $\delta$ si era trovato (vedi sopra) $\vdash_{HA}\Box\delta\to\Box\varphi$. Utilizzando questo fatto abbiamo:
 
 \begin{tabular}{l l l}
 1 & $\vdash_{HA}\delta\leftrightarrow(\Box\delta\to\varphi)$ 														& 									 \\
@@ -128,65 +310,16 @@ $$\vdash_{HA}\Box(\Box\varphi\to\varphi)\to\Box\varphi$$
 
 \noindent Il programma formalista propugnato da Hilbert si proponeva di fondare tutte le teorie matematiche presentandole come sistemi formali. Nell'idea di Hilbert, la solidità di una fondazione di questo tipo avrebbe dovuto essere sancita mediante una dimostrazione con metodi finitistici della consistenza del sistema formale, cioè della sua impossibilità di ricavare contraddizioni.
 
-Nel caso del sistema formale HA, poiché se è dimostrabile una qualunque contraddizione allora è dimostrabile $\bot$, la consistenza è espressa dalla formula $\neg\Box\bot$. E' allora naturale chiedersi se la consistenza di HA sia o meno dimostrabile all'interno di HA stessa.
+Nel caso del sistema formale HA, poichè se è dimostrabile una qualunque contraddizione allora è dimostrabile $\bot$, la consistenza è espressa dalla formula $\neg\Box\bot$. \`{E}allora naturale chiedersi se la consistenza di HA sia o meno dimostrabile all'interno di HA stessa.
 
-Il Secondo Teorema di incompletezza risponde a questa domanda, asserendo che HA non dimostra la propria consistenza, a meno che non sia in effetti inconsistente.
+Il Secondo Teorema di Incompletezza risponde a questa domanda, asserendo che HA non dimostra la propria consistenza, a meno che non sia in effetti inconsistente.
 
 \begin{thm}[Secondo Teorema di Incompletezza]
 Se HA è consistente, $\not\vdash_{HA}\mathrm{Con}_{HA}$.
 \end{thm}
 
-\begin{proof} Si supponga $\vdash_{HA}\mathrm{Con}_{HA}$, cioè $\vdash_{HA}\Box\bot\to\bot$. Allora dal teorema di L\"ob si avrebbe $\vdash_{HA}\bot$. Pertanto, per contrapposizione, se HA è consistente, cioè $\not\vdash_{HA}\bot$, allora $\not\vdash_{HA}\mathrm{Con}_{HA}$.
+\begin{proof} Si supponga $\vdash_{HA}\mathrm{Con}_{HA}$, cioè $\vdash_{HA}\Box\bot\to\bot$. Allora dal Teorema di L\"ob si avrebbe $\vdash_{HA}\bot$. Pertanto, per contrapposizione, se HA è consistente, cioè $\not\vdash_{HA}\bot$, allora $\not\vdash_{HA}\mathrm{Con}_{HA}$.
 \end{proof}
 
-\noindent Questo significa anche che ogni dimostrazione di consistenza di HA non potrà essere riproducibile in HA e dovrà pertanto fare uso di princìpi che vanno oltre quelli validi in HA. Inoltre, lo stesso può dirsi per PA. Poiché appare inverosimile che metodi che trascendono il potere di PA possano legittimamente essere detti ``finitistici'', è opinione diffusa che il secondo teorema di incompletezza mostri l'inattuabilità del programma di Hilbert per assicurare la non-contraddittorietà della matematica.
+\noindent Questo significa anche che ogni dimostrazione di consistenza di HA non potrà essere riproducibile in HA e dovrà pertanto fare uso di principi che vanno oltre quelli validi in HA. Inoltre, lo stesso può dirsi per PA. Poiché appare inverosimile che metodi che trascendono il potere di PA possano legittimamente essere detti ``finitistici'', è opinione diffusa che il Secondo Teorema di incompletezza mostri l'inattuabilità del programma di Hilbert per assicurare la non-contraddittorietà della matematica.
 
-\section{La logica del predicato di dimostrabilità $\ensuremath{\mathrm{Th}}(x)$}
-
-\noindent In questa sezione definiremo le \emph{proprietà formali} del predicato di dimostrabilità \ensuremath{\mathrm{Th}}\ e chiariremo il ruolo della logica modale GL introdotta nel capitolo precedente all'interno dello studio dell'aritmetica formale HA.
-
-In questa sezione abbiamo studiato il comportamento del predicato di dimostrabilità $\vdash_{HA}$ di HA. Per esempio, si è detto che $\vdash_{HA}\Box\varphi\to\Box\Box\varphi$ vale per ogni formula $\varphi$. Ciò significa che $\Box\varphi\to\Box\Box\varphi$ è un teorema di HA la cui validità è indipendente da $\varphi$ e dipende invece solamente dalle proprietà di \ensuremath{\mathrm{Th}}. Questo fatto può essere espresso in forma sintetica dicendo che la formula modale $\Box p\to\Box\Box p$ (dove ora $\Box$ e $p$ sono puri simboli e non abbreviazioni di formule aritmetiche) \emph{esprime una proprietà formale del predicato \ensuremath{\mathrm{Th}}}.
-
-In generale, una formula $\alpha$ del linguaggio modale esprime una proprietà formale di \ensuremath{\mathrm{Th}}\ quando il fatto che essa esprime su \ensuremath{\mathrm{Th}}\ è vero, cioè quando ogni interpretazione di $\alpha$ in aritmetica è un teorema; più formalmente, $\alpha$ esprime una proprietà di \ensuremath{\mathrm{Th}}\ se $\vdash_{HA}\sharp\alpha$ per ogni realizzazione $\sharp$.
-
-\begin{defi} La \emph{logica modale di HA} è l'insieme di formule modali che esprimono proprietà formali di \ensuremath{\mathrm{Th}}.
-$$\mathrm{Mod}_{HA}=\{\varphi\,|\,\vdash_{HA}\sharp\varphi\mathrm{\; per \; ogni \; realizzazione \; \sharp}\}$$
-\end{defi}
-
-\noindent E' chiaro che analogamente si può definire $\mathrm{Mod}_{T}$ ove $T$ sia una teoria aritmetica che ammetta un predicato di dimostrabilità $\ensuremath{\mathrm{Th}}_{T}$.
-
-Ora, il motivo della rilevanza della logica modale $\ensuremath{\mathrm{GL}}_{int}$\footnote{Utilizziamo il pedice per ricordare che in questo momento abbiamo a che fare con una logica modale basata sulla logica proposizionale intuizionistica; faremo a breve una menzione alla logica modale $\ensuremath{\mathrm{GL}}_{cl}$, in tutto identica a $\ensuremath{\mathrm{GL}}_{int}$ ma basata sulla logica classica.} introdotta nel capitolo precedente è il seguente: ogni teorema di \ensuremath{\mathrm{GL}_{\int}}\ esprime una proprietà del predicato \ensuremath{\mathrm{Th}}. Identificando la logica $\ensuremath{\mathrm{GL}}_{int}$ con l'insieme $\{\alpha\,|\,\ensuremath{\mathrm{GL}}_{int}\vdash\alpha\}$ dei suoi teoremi, si ha il fatto seguente.
-
-\begin{prop}
-$\ensuremath{\mathrm{GL}}_{int}\subseteq\mathrm{Mod}_{HA}$
-\end{prop}
-
-\begin{proof}
-Ogni formula $\alpha\in\ensuremath{\mathrm{GL}}_{int}$ è dimostrata a partire dagli assiomi di $\ensuremath{\mathrm{GL}}_{int}$ mediante un numero finito di applicazioni delle regole di derivazione di $\ensuremath{\mathrm{GL}}_{int}$. Pertanto, $\ensuremath{\mathrm{GL}}_{int}\subseteq\mathrm{Mod}_{HA}$ sarà dimostrato qualora si provi che ogni assioma di $\ensuremath{\mathrm{GL}}_{int}$ è in $\mathrm{Mod}_{HA}$ e che $\mathrm{Mod}_{HA}$ è chiuso per ogni regola di deduzione di $\ensuremath{\mathrm{GL}}_{int}$.
-\begin{description}
-\item[Assiomi]
-\begin{enumerate}
-\item Formule intuizionisticamente valide. Se $\alpha$ è una formula valida del calcolo proposizionale intuizionistico, è facile vedere che lo è anche $\sharp\alpha$ qualunque sia la realizzazione $\sharp\alpha$, e quindi che --dal momento che HA è equipaggiata della logica intuizionistica-- $\vdash_{HA}\sharp\alpha$, cioè $\alpha\in\mathrm{Mod}_{HA}$.
-\item Assiomi $K$. Si consideri l'assioma $K_{\alpha,\beta}\equiv\Box(\alpha\to\beta)\to(\Box\alpha\to\Box\beta)$. Data una realizzazione $\sharp$ si ha:
-    $$\sharp K_{\alpha,\beta}=\ensuremath{\mathrm{Th}}(\ulcorner\sharp\alpha\urcorner\to\ulcorner\sharp\beta\urcorner)
-    \to(\ensuremath{\mathrm{Th}}(\ulcorner\sharp\alpha\urcorner)\to\ensuremath{\mathrm{Th}}(\ulcorner\beta\urcorner))$$
-    Ma questa formula è dimostrabile in HA, come asserito da (HBL2), e poiché ciò vale per ogni realizzazione, si conclude $K_{\alpha,\beta}\in\mathrm{Mod}_{HA}$.
-\item Assiomi $L$. Si consideri $L_{\alpha}\equiv\Box(\Box\alpha\to\alpha)\to\Box\alpha$. Data una realizzazione $\sharp$ si ha $$\sharp L_{\alpha}=\ensuremath{\mathrm{Th}}(\ulcorner\ensuremath{\mathrm{Th}}(\ulcorner\sharp\alpha\urcorner)\to\sharp\alpha\urcorner)\to\ensuremath{\mathrm{Th}}(\ulcorner\sharp\alpha\urcorner)$$
-    Per il teorema di L\"ob internalizzato (teorema \ref{internalized lob}), questa formula è dimostrabile in HA, e poiché ciò è vero per ogni realizzazione, $L_\alpha\in\mathrm{Mod}_{HA}$.
-\end{enumerate}
-\item[Regole]
-\begin{enumerate}
-\item Modus ponens. Si supponga $\alpha\in\mathrm{Mod}_{HA}$ e $\alpha\to\beta\in\mathrm{Mod}_{HA}$. Allora, data una qualunque realizzazione $\sharp$ si ha $\vdash_{HA}\sharp\alpha$ e $\vdash_{HA}\sharp(\alpha\to\beta)$, cioè $\vdash_{HA}\sharp\alpha\to\sharp\beta$. Ma allora evidentemente anche $\vdash_{HA}\sharp\beta$, e quindi per la generalità di $\sharp$, $\beta\in\mathrm{Mod}_{HA}$.
-\item Necessitazione. Si supponga $\alpha\in\mathrm{Mod}_{HA}$. Ciò significa che data una qualunque realizzazione $\sharp$ si ha $\vdash_{HA}\sharp\alpha$ e quindi per (HBL1) anche $\vdash_{HA}\ensuremath{\mathrm{Th}}(\ulcorner\sharp\alpha\urcorner)$. Ma per definizione di realizzazione, $\ensuremath{\mathrm{Th}}(\ulcorner\sharp\alpha\urcorner)=\sharp\Box\alpha$, e poiché ciò vale per ogni $\sharp$, $\Box\alpha\in\mathrm{Mod}_{HA}$.
-\end{enumerate}
-\end{description}
-\end{proof}
-
-\noindent Ovviamente, viene spontaneo chiedersi se esista una assiomatizzazione di $\mathrm{Mod}_{HA}$. In particolare, poiché tutte le proprietà di \ensuremath{\mathrm{Th}}\ che abbiamo visto sono dimostrabili in $\ensuremath{\mathrm{GL}}_{int}$, viene spontaneo chiedersi se non sia forse $\mathrm{Mod}_{HA}=\ensuremath{\mathrm{GL}}_{int}$. La risposta è negativa (si veda ad esempio \cite{Visser}): $\mathrm{Mod}_{HA}\neq\ensuremath{\mathrm{GL}}_{int}$ e inoltre non è a tutt'oggi nota una assiomatizzazione di $\mathrm{Mod}_{HA}$.
-
-Chiudiamo il capitolo menzionando che se invece si passa dal caso costruttivo a quello classico, se cioè si considera l'aritmetica formale PA e la logica modale $\ensuremath{\mathrm{GL}}_{cl}$ che sono identiche a HA e $\ensuremath{\mathrm{GL}}_{int}$ eccetto per il fatto di essere equipaggiate con la logica classica anziché intuizionistica, allora le cose cambiano e si ha il seguente risultato di completezza.
-
-\begin{thm}[Teorema di Solovay] $\mathrm{Mod}_{PA}=\ensuremath{\mathrm{GL}}_{cl}$.
-\end{thm}
-
-Questa differenza mostra chiaramente che il predicato di dimostrabilità classico è molto più semplice e al contempo più debole in quanto a proprietà del suo corrispettivo intuizionistico, che resta per molti versi ancora misterioso.

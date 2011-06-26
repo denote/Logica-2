@@ -42,7 +42,7 @@ Utilizzando i ``nostri'' due robot, l'idea geniale di $G\ddot{o}del$ equivale a 
 Esistono diversi modi per la codifica di una sequenza di numeri naturali. Precisiamo subito che non \`e nostro interesse trovare quello pi\`u efficiente e quindi non ci interesseremo del grado di complessit\`a di calcolo. Utilizzeremo la codifica chiamata \emph{$G\ddot{o}del$ numbering} che si basa sul teorema di unicit\`a della scomposizione in fattori primi di un numero naturale.
 
 Definiamo una funzione che associa un numero naturale, il numero di $G\ddot{o}del$, ad ogni sequenza finita $(n_1,\ldots,n_{k})$, con $n_1,\ldots,n_{k}\in \mathbb {N}$. Ad ogni sequenza deve corrispondere uno ed un solo numero naturale e quindi tale funzione deve necessariamente essere iniettiva; consideriamo allora:
- \begin{displaymath}
+\begin{displaymath}
 \langle \bullet \rangle : \{\bigcup_{k\in\mathbb{N}} \mathbb{N}^k\} \rightarrow \mathbb{N}
 \end{displaymath}
 
@@ -58,7 +58,11 @@ Si noti che in generale il fatto di aggiungere $1$ ad ogni esponente $n_i$ ci pe
 $$
 Seq(n) := \forall p,q \leq n (Prime(p) \& Prime(q) \& p < q \& q|n \rightarrow p|n) \& n\ne 0,
 $$
- dove  $Prime$ \`e il predicato (anch'esso primitivo ricorsivo) definito nel Cap. $6$. Questo predicato afferma che se un primo $q$ divide $n$ allora tutti i primi minori di $q$ dividono $n$.
+ dove  $Prime$ \`e il predicato (anch'esso primitivo ricorsivo) cos{\`{i}} definito:
+$$
+Prime(n) := \forall u,v \leq n[ (uv = x) \rightarrow (u=1 \vee v=1) ]
+$$
+ Il predicato $Seq(n)$ afferma che se un primo $q$ divide $n$ allora tutti i primi minori di $q$ dividono $n$.
  Una volta riconosciuta tale propriet\`a di $n$ \`e utile risalire agli elementi che compongono la sequenza originale. A tale scopo ci serviremo delle seguenti funzioni primitive ricorsive:
 \begin{itemize}
 \item[1)] {$exp(n,i)$, restituisce l'i-esimo elemento della sequenza originale, quindi $n_i$, ossia l'esponente meno $1$ dell'i-esimo primo nella fat\-to\-riz\-za\-zio\-ne di $n$: $$exp(n,i) := (\mu x \leq n){ [p_{i}^{x}|n \& \neg (p_i^{x+1}|n)]-1.}$$
@@ -66,7 +70,7 @@ $$
 per come l'abbiamo definito, $epx(72,1)$ calcola il minimo $x$ tale che $2^x$ $(p_1=2)$ divide $72$ ma non $2^{x+1}$ e ad esso toglie uno. Poich\'e, per la nostra convenzione, il primo esponente nella fattorizzazione in primi \`e $n_1+1$, $exp(72,1)$ restituisce semplicemente $n_0=2$ (primo elemento della sequenza). Analogamente si ricava $exp(72,2)=1$.}
 
 \item[2)] $len(n)$, calcola la lunghezza della sequenza originale, ossia il numero dei distinti fattori primi di $n$:
-    $$len(n):= (\mu x -1 \leq n )[\neg (p_x|n)];$$
+    $$len(n):= (\mu x \leq n)[\neg (p_x|n)] - 1;$$
     Prendiamo anche in questo caso, per fare un esempio, $72=2^3\cdot3^2$: $len$ calcola il minimo indice $x$ dei primi che non dividono $72$ e ci sottrae uno. Nel nostro caso risulta $p_3=5$ e quindi $x=2$.
 
 \item[3)] $n\star m$, calcola il codice della sequenza ottenuta concatenando due sequenze di numeri codificate da $n$ e $m$: $$n\star m= n\cdot \prod_{i=1}^{len(m)} p_{len(n)+i}^{exp(m,i)+1}.$$
@@ -92,11 +96,11 @@ Passiamo ora alla codifica della sintassi e per fare ci\`o iniziamo assegnando u
 
 \vspace{0.5cm}
 
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-Simbolo & $\&$ & $\vee$ & $\rightarrow$ & $\exists$ & $\forall$ & $($ & $)$ & $=$ & $0$ & $s$ & $+$ & $\cdot$ & $,$ & $x_i$ \\
+Simbolo & $\neg$ & $\&$ & $\vee$ & $\rightarrow$ & $\exists$ & $\forall$ & $($ & $)$ & $=$ & $0$ & $s$ & $+$ & $\cdot$ & $,$ & $x_i$ \\
 \hline
-Codice  & $3$ & $5$ & $7$ & $9$ & $11$ & $13$ & $15$ & $17$ & $19$ & $21$ & $23$ & $25$ & $27$ & $2 i+29$\\
+Codice  & $1$ & $3$ & $5$ & $7$ & $9$ & $11$ & $13$ & $15$ & $17$ & $19$ & $21$ & $23$ & $25$ & $27$ & $2 i+29$\\
 \hline
 \end{tabular}
 \vspace{0.5cm}
@@ -145,7 +149,7 @@ exp(n,4) = \ulcorner ) \urcorner) \vee \\
 Cerchiamo di dare l'idea di come agisce tale predicato. Abbiamo visto che un termine \`e o una costante, o una variabile o una funzione $f\in \{+, \cdot, *\}$ applicata ad un termine: $Const(n)$, $Var(n)$ e $(\dots)$ riconoscono rispettivamente questi tre casi. Analizziamo quello tra parentesi, ossia $(\dots)$; in sostanza  deve succedere che
 $n$ \`e una sequenza ``valida'' ($Seq(n)$); la sua lunghezza \`e pari a 4 ($len(n)=4$); il primo elemento della sequenza ($exp(n,1)$) \`e la funzione unaria; il secondo una parentesi aperta ($exp(n,2) = \ulcorner ( \urcorner$); il terzo un termine ($Term(exp(n,3))$) e il quarto una parentesi chiusa ($exp(n,4) = \ulcorner ) \urcorner)$).
 Altrimenti pu\'o anche essere (parte finale): la sequenza \`e valida, la lunghezza \`e pari a 6, il primo elemento \`e la funzione binaria, il secondo una parentesi, il terzo e il quinto due termini, il quarto la virgola e il sesto una parentesi.
-
+ 
 
 \section{Codifica delle formule}
 
@@ -247,7 +251,16 @@ $$
 
 \end{itemize}
 
-In quest'ultimo caso, lavorando cio\`e con i quantificatori, \`e necessario prestare attenzione alle variabili che ci interessano nella sostituzione, in particolare se queste compaiono libere o quantificate. Consideriamo, per capire meglio, $\forall x_1\exists x_2 (x_1=2x_2)$: in tale espressione $x_1$ appare quantificata e risulta chiaramente privo di senso volerla sostituire, per esempio, con $x_1=3$. Se tale variabile fosse libera avremmo $\exists x_2 (x_1=2x_2)$ e in questo caso, invece, la precedente sostituzione sarebbe sensata.
+In quest'ultimo caso, lavorando cio\`e con i quantificatori, \`e necessario prestare attenzione alle variabili che ci interessano nella sostituzione, in particolare se queste compaiono libere o quantificate.
+
+Facciamo un ripasso sul significato di variabile libera in una formula:
+\begin{itemize}
+ \item $\varphi$ formula atomica: $x$ occorre libera in $\varphi$ se $x$ compare in $\varphi$;
+\item $\varphi=\psi\circ \chi$: $x$ occorre libera in $\varphi$ se occorre libera in $\psi$ o $\chi$;
+\item $\varphi=\forall \,x_2\, \psi$ o $\varphi=\exists \,x_2\, \psi$: $x$ occorre libera in $\varphi$ se occorre libera in $\psi$ e $x \ne x_2$. (In questo caso $x_2$ non occorre libera, ma quantificata.)
+ \end{itemize}
+
+Consideriamo, per capire meglio, $\forall x_1\exists x_2 (x_1=2x_2)$: in tale espressione $x_1$ appare quantificata e risulta chiaramente privo di senso volerla sostituire, per esempio, con $x_1=3$. Se tale variabile fosse libera avremmo $\exists x_2 (x_1=2x_2)$ e in questo caso, invece, la precedente sostituzione sarebbe sensata.
 
 Esiste un altro caso in cui la sostituzione precedentemente definita risulta fallimentare. Consideriamo, per esempio, la formula $\exists x_1(x_1=x_2)$.
 Supponiamo di voler sostituire ad $x_2$ il termine $s(x_1)$, allora otteniamo, per quanto appena visto, $\exists x_1(x_1=s(x_1))$.
@@ -332,6 +345,7 @@ l, \hspace{1.9cm}\text {se $Var(n) \,\&\, n= m$} \\
 \langle \ulcorner ( \urcorner, exp(n,2), exp(n,3), Sub(l,m,exp(n,4)),\ulcorner ) \urcorner \rangle,\\
 \hspace{2.1cm}  \text{se $Form(n) \,\&\, FreeFor(l,m,n) \,\&\, exp(n,2) = \ulcorner \forall\urcorner \,\vee\,$}\\
 \hspace{2.1cm} 	\text{$exp(n,2) = \ulcorner \exists \urcorner$}\\
+n, \hspace{1.8cm} \text{altrimenti}\\
 \end{array}}\right.
 \end{displaymath}}
 
@@ -794,3 +808,5 @@ Thm(n) := \exists \, l \, Der(l,\langle \rangle,n) .
 $$
 
 Ricordando infine che, tramite il predicato di Kleene, quantificando esistenzialmente un predicato decidibile, si ottiene un predicato ricorsivamente enumerabile, $Thm(n)$ risulta chiaramente ricorsivamente enumerabile.
+
+Quindi abbiamo dimostrato che HA e MHA sono la stessa cosa, avendo trasformato ogni predicato di MHA in un predicato numerico di HA.
