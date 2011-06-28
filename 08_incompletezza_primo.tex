@@ -755,7 +755,7 @@ e ricorsivit\`a}
 
 	Introduciamo un nuovo
 	simbolo: per ogni formula $\varphi$ definiamo
-	$\Box\varphi\equiv TH(\overline{\gdnum{\varphi}})$.
+	$\Box\varphi\equiv TH(\overline{\ulcorner \varphi \urcorner})$.
 	Esprime il fatto che $\varphi$ \`e dimostrabile in $HA$.
 	Per diagonalization lemma, precedentemente dimostrato,
 	posto $\psi(x)=\neg TH(x)$, otteniamo:
@@ -791,9 +791,9 @@ e ricorsivit\`a}
 	\vdash_{HA}\Box A\:\:\:\:\Rightarrow\:\:\:\:\vdash_{HA} A.\nonumber
 	\end{eqnarray}
 	Si supponga infatti che $\vdash_{HA}\Box A$, ossia $\vdash_{HA}\exists
-	yPR(\overline{y},\overline{\gdnum{A}})$.
+	yPR(\overline{y},\overline{\ulcorner A \urcorner})$.
 	Per ``existence property''  esiste un numero naturale $n$ tale
-	che $\vdash_{HA} PR(\overline{n},\overline{\gdnum{A}})$.
+	che $\vdash_{HA} PR(\overline{n},\overline{\ulcorner A \urcorner})$.
 	Ci\`o significa che $n$ codifica la prova di $A$, pertanto a
 	partire da $n$ si pu\`o costruire la derivazione di $A$ in $HA$.
 	Si conclude che $\vdash_{HA} A$.
@@ -914,21 +914,21 @@ e ricorsivit\`a}
 	Per proposizione \ref{lem:hbl3bis} $\vdash_{HA}\neg\Box\bot\rightarrow G$,
 	segue che $\vdash_{HA} G$. Ci\`o \`e contro teorema \ref{teo:nonG}.
 	\begin{flushright}$\Box$\end{flushright}
-	
+	\\
 	Una dimostrazione alternativa abbastanza intuitiva potrebbe essere la seguente:
 	
-	\begin{thm}[Primo teorema di incompletezza per $HA$]
-	\label{teo:inc1}
-	\begin{array}{ll}
-	1. Se $\vdash_{HA}\phi$ allora $\vdash_{PA}\phi$;\\
-	2. esiste G tale che $\nvdash_{PA} G$ e $\nvdash_{PA} \neg G$ $$
-	\end{array}
-	Allora da 1. e 2. segue che:\\
-	3. esiste G tale che $\nvdash_{HA}$ e $\nvdash_{HA} \neg G$.
+	\begin{thm}[Primo teorema di incompletezza per $HA$] \qquad
+	\begin{enumerate}
+	\item Se $\vdash_{HA}\phi$ allora $\vdash_{PA}\phi$;
+	\item esiste G tale che $\nvdash_{PA} G$ e $\nvdash_{PA} \neg G$ \\
+	Allora da 1. e 2. segue che:
+	\item esiste G tale che $\nvdash_{HA}$ e $\nvdash_{HA} \neg G$.
+	\end{enumerate}
 	\end{thm}
 	
 	\textsc{dimostrazione}\\
- 	Assumiamo $\vdash_{HA}G$. Allora per 1. segue che $\vdash_{PA} G$, contro l'ipotesi 2..
-	Assumiamo $\vdash_{HA}\neg G$. Allora per 1. segue che $\vdash_{PA} \neg G$, contro l'ipotesi 2..
+ 	Assumiamo $\vdash_{HA}G$. Allora per 1. segue che $\vdash_{PA} G$, contro l'ipotesi 2.
+	Assumiamo $\vdash_{HA}\neg G$. Allora per 1. segue che $\vdash_{PA} \neg G$, contro l'ipotesi 2.
 	\begin{flushright}$\Box$\end{flushright}
-	Questa dimostrazione, per\`{o}, risulta non soddisfacente ai nostri scopi, in quanto la caratteristica costruttiva che delinea le nostre dimostrazioni viene a mancare nella seconda ipotesi del teorema. Per questo motivo confermiamo come quarta versione del primo teorema di completezza quella data da Maietti-Sambin.
+	Questa dimostrazione, per\`{o}, risulta non soddisfacente ai nostri scopi, in quanto la caratteristica costruttiva che delinea le nostre dimostrazioni viene a mancare nella seconda ipotesi del teorema. \\
+	Per questo motivo confermiamo come quarta versione del primo teorema di completezza quella data da Maietti-Sambin.
